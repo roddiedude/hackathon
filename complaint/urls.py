@@ -1,9 +1,5 @@
 from django.conf.urls import patterns, url
 from complaint import views
-from django.conf.urls import patterns, url
-
-
-
 
 urlpatterns = patterns('',
      #url(r'^$', views.index, name='complaints'),
@@ -17,9 +13,8 @@ urlpatterns = patterns('',
      url(r'^my-complaints$', views.partial_my_complaints, name='my-complaints'),
      url(r'^detail/(?P<complaint_id>\d+)/$', views.detail, name='detail'),
      url(r'^upvote/(?P<complaint_id>\d+)/$', views.upvote, name='upvote'),
-     url(r'^comments/(?P<complaint_id>\d+)/$', views.comment, name='comment'),
-     
-     )
+     url(r'^comments/(?P<complaint_id>\d+)/$', views.comment), name='comment'),     
+)
         
 
 
