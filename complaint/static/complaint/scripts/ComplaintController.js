@@ -26,8 +26,6 @@ app.controller("ComplaintController", function($scope, $http) {
         }).error(function (data) {
             //$scope.incorrectCredentials = true;
         });		
-
-		console.log($scope.complaint);
 	},
 	
 
@@ -51,8 +49,7 @@ app.controller("ComplaintController", function($scope, $http) {
 								+ parseInt(100.0 * evt.loaded / evt.total));
 					}).then(function(data, status, headers, config) {
 				// file is uploaded successfully
-				console.log(data);
 			});
 		}
 	}
-})
+});
