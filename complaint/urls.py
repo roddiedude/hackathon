@@ -8,9 +8,6 @@ urlpatterns = patterns('',
      url(r'^$', views.mycomplaints, name='mycomplaints'),
      url(r'^complaintsassigned/$', views.complaints_in_myplate, name='complaints_in_my_plate'),
      url(r'^add-complaint$', views.partial_add_complaint, name='add-complaint'),
-<<<<<<< Updated upstream
      url(r'^detail/(?P<complaint_id>\d+)/$', views.detail, name='detail'),
      url(r'^upvote/(?P<complaint_id>\d+)/$', views.upvote, name='upvote'),
-=======
->>>>>>> Stashed changes
 )
