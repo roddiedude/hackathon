@@ -79,13 +79,6 @@ def partial_add_complaint(request):
 
 def partial_my_complaints(request):
     return render(request, 'complaint/partials/my-complaints.html')
-
-
-
-
-
-
-
     
 
 def upvote(request, complaint_id):
@@ -96,5 +89,21 @@ def upvote(request, complaint_id):
 
 def detail(request, complaint_id):
     return render(request, 'complaint/detail.html',  {'complaint_id':complaint_id})
+
+def comment(request, complaint_id):
+    commentResource = CommentResource()
+    
+    complaint = get_object_or_404(Complaint,pk=complaint_id)
+    
+    comments = get_list_or_404(Comments, complaint=complaint)
+       
+    bundles = []
+    for obj in comments:
+        bundle = commentResource.build_bundle(obj=obj, request=request)
+        bundles.append(commentResource.full_dehydrate(bundle, for_list=True))
+
+    list_json = commentResource.serialize(None, bundles, "application/json")
+    return HttpResponse(list_json, content_type='json')
+
 
 
