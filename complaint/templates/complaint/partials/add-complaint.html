@@ -14,7 +14,7 @@
 					<label class="control-label" for="category">Category</label>
 					<div class="controls">
 						<select class="" name="Category-list" id="category-list"
-							ng-model="complaint.category">
+							ng-model="complaint.category_object" value={[{complaint.category}]}>
 							<option ng-repeat="category in categories" id={[{category.id}]} value="{[{ category.resource_uri }]}"> {[{category.name}]}</option>
 						</select>
 
@@ -26,12 +26,8 @@
 					<div class="controls">
 
 						<select class="" name="locality"
-							ng-model="complaint.locality">
-							<option></option>
-							<option value="13">Adayar</option>
-							<option value="14">Guindy</option>
-							<option value="15">Besant Nagar</option>
-							<option value="16">Anna Nagar</option>
+							ng-model="complaint.locality" value="complaint.locality">
+							<option ng-repeat="locality in locations" id ="{[{locality.id}]}" value="{[{ locality.resource_uri}]}">{[{locality.name}]}</option>
 						</select>
 					</div>
 				</div>

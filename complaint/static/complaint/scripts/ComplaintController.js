@@ -4,9 +4,14 @@ app.controller("ComplaintController", function($scope, $http) {
 		date_entered : new Date()
 	};
 
-	$http.get('/api/v1/category/?format=json')
+	$http.get('/api/v1/location/?format=json')
 		.success(function(data) {
-			$scope.categories = data.objects;
+			$scope.locations = data.objects;
+	});
+	
+	$http.get('/api/v1/category/?format=json')
+	.success(function(data) {
+		$scope.categories = data.objects;
 	});
 	
 	$http.get('/accounts/info')
@@ -14,7 +19,7 @@ app.controller("ComplaintController", function($scope, $http) {
 			$scope.complaint.user = data[0].resource_uri;
 	});
 	
-	$scope.postComplaints = function(e) {
+	$scope.postComplaint = function() {
 
 		$http({
 			url : "/api/v1/complaint/",
