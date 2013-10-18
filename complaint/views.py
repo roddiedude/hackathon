@@ -77,21 +77,14 @@ def followers_of_my_complaints(request,complaint_id):
     following = FollowingResource()
     
     cmp = Complaint.objects.get(pk=complaint_id)
-    followers = get_list_or_404(Following,complaint=cmp)   
-       
+    followers = get_list_or_404(Following,complaint=cmp)
     bundles = []
     for obj in followers:
         bundle = following.build_bundle(obj=obj, request=request)
         bundles.append(following.full_dehydrate(bundle, for_list=True))
-
-    list_json = following.serialize(None, bundles, "application/json")
-    return HttpResponse(list_json, content_type='json')
-
-def my_complaints_followercount(request,complaint_id):
-    following = FollowingResource()
-    followers = followers_of_my_complaints(complaint_id)
-    cnt = followers.count
-    following.build_bundle(obj=cnt, request=request)
+        list_json = following.serialize(None, bundles, "application/json")       
+    return HttpResponse(list_json, content_type='json')            
+       
     
 
 
