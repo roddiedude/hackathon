@@ -100,7 +100,7 @@ a.icon {
 							ng-click="postComplaint()">Post a Complaint</button>
 						<h3>Complaints</h3>
 					</div>
-					<div ng-controller="MyComplaintsController">
+					<div ng-controller="MyComplaintsController" ng-init="complaints = []; localityComplaints = []">
 						<div class="well">
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#login" data-toggle="tab"><h4>MyComplaints</h4></a></li>
@@ -110,6 +110,11 @@ a.icon {
 								<div class="tab-pane active in" id="login">
 									<form class="form-horizontal">
 										<div class="container-fluid">
+											<div class="row-fluid" ng-show="complaints.length == 0">
+												<div class="span12 well">
+													No complaints available.
+												</div>
+											</div>
 											<div class="row-fluid" ng-repeat="complaint in complaints">
 												<div class="span12 well">
 													<div class="row-fluid">
@@ -136,6 +141,11 @@ a.icon {
 								<div class="tab-pane fade" id="create">
 									<form class="form-horizontal">
 										<div class="container-fluid">
+											<div class="row-fluid" ng-show="localityComplaints.length == 0">
+												<div class="span12 well">
+													No complaints available.
+												</div>
+											</div>
 											<div class="row-fluid" ng-repeat="complaint in localityComplaints">
 												<div class="span12 well">
 													<div class="row-fluid">

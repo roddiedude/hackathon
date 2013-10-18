@@ -56,9 +56,13 @@ app.controller('MyComplaintsController', function($scope, $http) {
 			};
 	});
 	
-	$http.get('/complaint/localcomplaints/').success(function(data) {
-		$scope.localityComplaints = data;
-	});
+	$http.get('/complaint/localcomplaints/')
+		.success(function(data) {
+			$scope.localityComplaints = data;
+		})
+		.error(function(data){
+			$scope.localityComplaints = [];
+		});
 	
 	$scope.upvote = function(complaint) {
 		$http.get('/complaint/upvote/'+complaint.id + '/')
