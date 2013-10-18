@@ -41,6 +41,19 @@ app.controller("ComplaintController", function($scope, $http) {
 app.controller('MyComplaintsController', function($scope, $http) {
 	$http.get('/complaint/').success(function(data) {
 		$scope.complaints = data;
+
+		if ($scope.complaints && $scope.complaints.length > 0)
+			for (var i = 0; i < $scope.complaints.length; i++) {
+				var complaint = $scope.complaints[i];
+				$http.get('/complaint/' + complaint.id + '/followers')
+					.success(function(followers) {
+						complaint.followers = followers;
+				});
+				$http.get(complaint.locality)
+					.success(function(locality) {
+						complaint.location = locality.name;
+				});
+			};
 	});
 	
 	$http.get('/complaint/localcomplaints/').success(function(data) {
