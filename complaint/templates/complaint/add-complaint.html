@@ -3,7 +3,20 @@
 <head>
     <title>Post a new complaint</title>
     
-    {% load staticfiles %}
+     {% load staticfiles %}
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-responsive.css' %}" />
+    
+    <script src="{% static 'scripts/jquery/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'scripts/bootstrap/bootstrap.js' %}"></script>
+    <script src="{% static 'scripts/angular/angular.js' %}"></script>
+    <script src="{% static 'scripts/angular/ui-bootstrap-tpls-0.6.0.js.js' %}"></script>
+    
+    <script src="{% static 'scripts/js/app.js' %}"></script>
+    <script src="{% static 'scripts/js/directives.js' %}"></script>
+    <script src="{% static 'scripts/js/services.js' %}"></script>
+    <script src="{% static 'complaints/js/ComplaintsController.js' %}"></script>
     
 </head>
 <body>

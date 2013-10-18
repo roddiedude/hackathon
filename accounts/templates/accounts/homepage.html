@@ -1,1 +1,76 @@
-Welcome to home page!
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+     {% load staticfiles %}
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-responsive.css' %}" />
+    
+    <script src="{% static 'scripts/jquery/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'scripts/bootstrap/bootstrap.js' %}"></script>
+    <script src="{% static 'scripts/angular/angular.js' %}"></script>
+    <script src="{% static 'scripts/angular/ui-bootstrap-tpls-0.6.0.js' %}"></script>
+    
+    <script src="{% static 'scripts/js/app.js' %}"></script>
+    <script src="{% static 'scripts/js/directives.js' %}"></script>
+    <script src="{% static 'scripts/js/services.js' %}"></script>
+    <script src="{% static 'accounts/js/login.js' %}"></script>
+
+</head>
+
+<body>
+
+    <div class="navbar navbar-inverse nav">
+
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="#" name="top">My City</a>
+                <div class="nav-collapse collapse" ng-controller="LoginController" ng-init="incorrectCredentials = false">
+                    <ul class="nav">
+                    </ul>
+                    <ul class="nav pull-right">
+                        <li><a href="Src/Views/SignUp.html">Sign Up</a></li>
+                        <li class="divider-vertical"></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+                            <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+                                <form name="loginForm">
+                                	<div class="alert alert-error" ng-show="incorrectCredentials">
+                                		Incorrect Credential!
+                            		</div>
+                                    <input style="margin-bottom: 15px;" type="text" placeholder="Username" id="username" name="username" autocomplete="off" ng-model="user.userName" required="required" data-ng-change="incorrectCredentials=false" />
+                            		<input style="margin-bottom: 15px;" type="password" placeholder="Password" id="password" name="password" autocomplete="off" ng-model="user.password" required="required" data-ng-change="incorrectCredentials=false" />
+                                    <button class="btn btn-primary btn-block" type="submit" ng-disabled="loginForm.$invalid" ng-click="login()">Login</button>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+            <!--/.container-fluid -->
+        </div>
+        <!--/.navbar-inner -->
+    </div>
+    <!--/.navbar -->
+    <script>
+        $(document).ready(function () {
+            //Handles menu drop down
+            $('.dropdown-menu').find('form').click(function (e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
+
+</body>
+</html>
