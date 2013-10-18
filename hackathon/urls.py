@@ -28,6 +28,8 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     
+    url(r'^complaint/', include('complaint.urls', namespace="complaint")),
+    
     url(r'', include('accounts.urls', namespace="accounts")),
     
     (r'^api/', include(v1_api.urls)),
