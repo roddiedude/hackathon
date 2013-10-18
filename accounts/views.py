@@ -18,21 +18,20 @@ def landing(request):
 
 @csrf_exempt
 def login(request):
-    response = {}
-    
-    if request.is_ajax():
-        if request.method == 'POST':
-            userjson = simplejson.loads(request.raw_post_data)
-            
-            """"TODO: check if user already exists"""
-            user = authenticate(username=userjson['userName'], password=userjson['password'])
-            if user is not None:
-                # the password verified for the user
-                if user.is_active:
-                    auth_login(request, user)
-                    response['message'] = 'Success'
-                    response['redirect'] = reverse('accounts:landing')
-                    return HttpResponse(simplejson.dumps(response))
+    response = {}    
+
+    if request.method == 'POST':
+        userjson = simplejson.loads(request.raw_post_data)
+        
+        """"TODO: check if user already exists"""
+        user = authenticate(username=userjson['userName'], password=userjson['password'])
+        if user is not None:
+            # the password verified for the user
+            if user.is_active:
+                auth_login(request, user)
+                response['message'] = 'success'
+                response['redirect'] = reverse('accounts:landing')
+                return HttpResponse(simplejson.dumps(response))
                 
     response['message'] = 'Unknown username or password'    
     return HttpResponse(simplejson.dumps(response))

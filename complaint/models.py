@@ -14,3 +14,8 @@ class Complaint(models.Model):
     upvotes = models.IntegerField(default=0)
     photo = models.ImageField(upload_to="complaints", null=True)
     
+class Comments(models.Model):
+    complaint = models.ForeignKey(Complaint)
+    user = models.ForeignKey(User)
+    comment = models.CharField(max_length=2000)
+    
