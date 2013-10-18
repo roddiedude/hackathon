@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html ng-app="app">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Home page</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -16,6 +14,11 @@
 <style type="text/css">
 .nav,.pagination,.carousel a {
 	cursor: pointer;
+}
+#loginModal
+{
+	height: 100%;
+	min-height: 100%
 }
 </style>
 
@@ -33,30 +36,143 @@
 </head>
 
 <body ng-controller="HomeController">
-	<div class="navbar navbar-inverse nav">
-		<div class="navbar-inner">
-			<div class="container-fluid">
-				<a class="btn btn-navbar" data-toggle="collapse"
-					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span>
-				</a> <a class="brand" href="#" name="top">My City</a>
+	<div class="head">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="span6">
+					<h1 class="muted">My City</h1>
+				</div>
+
+				<div class="span4 offset2" style="margin-top: 15px;">
+
+					<button type="button" class="btn btn-link pull-right">Sign
+						Out</button>
+					<button type="button" class="btn btn-link pull-right">My
+						Account</button>
+
+					<label class="label">Select City</label> <select class="span6"
+						name="locality">
+						<option></option>
+						<option value="13">Adayar</option>
+						<option value="14">Guindy</option>
+						<option value="15">Besant Nagar</option>
+						<option value="16">Anna Nagar</option>
+					</select>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="container">
-		<div class="span5 well">
-			<h3>My Complaints</h3>
-			<button type="button" class="btn btn-primary"
-				ng-click="postComplaint()">Post a Complaint</button>
-				
-			<div ng-include="'complaint/my-complaints'">
-				
+	<!-- Top Nav Bar -->
+	<div class="navbar navbar-inverse nav">
+		<div class="navbar-inner">
+			<div class="container">
+				<!--a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <!--a class="brand" href="/">My City</a-->
+				<div class="nav-collapse collapse">
+					<ul class="nav">
+						<li class="divider-vertical"></li>
+						<li class="active"><a href="#"><i
+								class="icon-home icon-white"></i> Home</a></li>
+						<li><a href="#"><i class="icon-home icon-white"></i>
+								Complaints</a></li>
+						<li><a href="#"><i class="icon-home icon-white"></i> My
+								City</a></li>
+
+					</ul>
+
+				</div>
+
 			</div>
 		</div>
-		<div class="span2"></div>
-		<div class="span5 well">
-			<h3>Complaints in My Locality</h3>
+	</div>
+	<!-- /Top NavBar-->
+
+
+	<div class="container-fluid">
+		<div class="row-fluid">
+
+			<div class="span10 offset1">
+				<div class="" id="loginModal">
+					<div class="modal-header">
+						<button class="btn pull-right btn-danger" type="button"
+							ng-click="postComplaint()">Post a Complaint</button>
+						<h3>Complaints</h3>
+					</div>
+					<div ng-controller="MyComplaintsController">
+						<div class="well">
+							<ul class="nav nav-tabs">
+								<li class="active"><a href="#login" data-toggle="tab"><h4>MyComplaints</h4></a></li>
+								<li><a href="#create" data-toggle="tab"><h4>Complaints in my locality</h4></a></li>
+							</ul>
+							<div id="myTabContent" class="tab-content">
+								<div class="tab-pane active in" id="login">
+									<form class="form-horizontal">
+										<div class="container-fluid">
+											<div class="row-fluid" ng-repeat="complaint in complaints">
+												<div class="span12 well">
+													<div class="row-fluid">
+														<div class="span6">
+															<div class="caption">
+												              <h4><a ng-href="complaint/{[{ complaint.id }]}">{[{ complaint.title }]}</a></h4>
+												              	<p>{[{ complaint.information }]}</p>
+												              	<p><i class="icon icon-map-marker"></i> {[{ complaint.locality }]}</p>
+												            </div>
+														</div>
+														<div class="span4">
+															<a href="#" class="btn btn-large btn-link" type="button">3
+																Followers</a>
+														</div>
+														<div class="span2">
+															<div>
+																<label class="label" style="cursor: auto">{[{ complaint.upvotes }]}</label> <i
+																	class="icon-black icon-thumbs-up"></i>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+								<div class="tab-pane fade" id="create">
+									<form class="form-horizontal">
+										<div class="container-fluid">
+											<div class="row-fluid" ng-repeat="complaint in localityComplaints">
+												<div class="span12 well">
+													<div class="row-fluid">
+														<div class="span6">
+															<div class="caption">
+												              <h4><a ng-href="complaint/{[{ complaint.id }]}">{[{ complaint.title }]}</a></h4>
+												              	<p>{[{ complaint.information }]}</p>
+												              	<p><i class="icon icon-map-marker"></i> {[{ complaint.locality }]}</p>
+												            </div>
+														</div>
+														<div class="span4">
+															<a href="#" class="btn btn-large btn-link" type="button">3
+																Followers</a>
+														</div>
+														<div class="span2">
+															<div>
+																<label class="label" style="cursor: auto">{[{ complaint.upvotes }]}</label> <i
+																	class="icon-black icon-thumbs-up"></i>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 

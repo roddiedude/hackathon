@@ -7,6 +7,15 @@ from department.models import Department
 from location.models import Location
 from location.models import UserInfo
 from django.core import serializers
+from django.shortcuts import render,render_to_response
+from django.http import HttpResponse
+from django.shortcuts import get_list_or_404, get_object_or_404
+from complaint.models import Complaint
+from category.models import Category
+from department.models import Department
+from django.core import serializers
+#from api.resources import ComplaintResource
+from hackathon.api import *
 #from api.resources import ComplaintResource
 from hackathon.api import *
 
@@ -70,4 +79,21 @@ def partial_add_complaint(request):
 
 def partial_my_complaints(request):
     return render(request, 'complaint/partials/my-complaints.html')
+
+
+
+
+
+
+
+    
+
+def upvote(request, complaint_id):
+    complaint = get_object_or_404(Complaint, pk=complaint_id)
+    complaint.upvotes = complaint.upvotes + 1
+    complaint.save()
+
+def detail(request, complaint_id):
+    return render(request, 'complaint/detail.html',  {'complaint_id':complaint_id})
+
 
