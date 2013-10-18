@@ -10,6 +10,11 @@ app.config(function ($routeProvider) {
                 controller: 'SignupController',
                 templateUrl: '/accounts/sign-up'
             })
+        .when('/edit',
+    		{
+        		controller: 'EditAccountController',
+        		templateUrl: '/accounts/edit'
+    		})
         .otherwise({ redirectTo: '/home' });
 });
 
@@ -60,4 +65,32 @@ app.controller('SignupController', function($scope, $http, $location) {
     };
 });
 
-
+app.controller('EditAccountController', function($scope, $http) {
+	
+    $scope.isSaveDisabled = function () {
+        return $scope.signUpForm.$invalid || $scope.user.password != $scope.user.confirmPassword;
+    };
+	
+	$http.get('/accounts/info')
+		.success(function(data) {
+			$scope.user = data[0];
+			$scope.user.password="";
+		});
+	
+	$scope.updateUser = function() {
+		delete $scope.user.confirmPassword;
+		
+        $http({
+            url: $scope.user.resource_uri,
+            method: 'PUT',
+            data: $scope.user,
+            headers: { 'content-type': 'application/json' }
+        })
+        .success(function (data) {
+        	document.location.href = '/landing';
+        })
+        .error(function (data) {
+            console.log('error.');
+        });
+	};
+});
