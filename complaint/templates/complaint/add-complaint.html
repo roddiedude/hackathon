@@ -44,15 +44,7 @@
 					<div class="controls">
 						<select class="span2" name="Category-list" id="category-list"
 							ng-model="complaint.category">
-							<option></option>
-							<option value="01">Crime and Safety</option>
-							<option value="02">Electricity and Power Supply</option>
-							<option value="03">Civil Supplies</option>
-							<option value="04">Sewage</option>
-							<option value="05">Drinking Water</option>
-							<option value="06">Traffic</option>
-							<option value="07">Sanitation</option>
-							<option value="08">Rain water Drains</option>
+							<option ng-repeat="category in categories" id={[{category.id}]}> {[{category.name}]}</option>
 						</select>
 
 					</div>

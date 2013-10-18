@@ -4,6 +4,11 @@ app.controller("ComplaintController", function($scope, $http) {
 			date_entered : new Date()
 	},
 	
+	$http.get('/api/v1/category/?format=json')
+		.success(function(data) {
+			$scope.categories = data.objects;
+		})
+	
 	$scope.postComplaints = function(e) {
 		
 		$http({
