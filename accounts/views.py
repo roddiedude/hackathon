@@ -6,6 +6,7 @@ from django.utils import simplejson
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from hackathon.api import *
 
 
 def home(request):
@@ -72,5 +73,16 @@ def partial_sign_up(request):
 
 def partial_home(request):
     return render(request, 'accounts/partials/home.html')
-                  
-                  
+       
+@login_required      
+def info(request):
+    userResource = UserResource()
+    usr = request.user
+
+    bundles = []    
+    bundle = userResource.build_bundle(obj=usr, request=request)
+    
+    bundles.append(userResource.full_dehydrate(bundle))
+    json = userResource.serialize(None, bundles, "application/json")
+    return HttpResponse(json, content_type='json')
+

@@ -8,7 +8,7 @@ from department.models import Department
 from tastypie.authorization import Authorization
 
 
-class UserResource(ModelResource):
+class UserResource(ModelResource):    
     class Meta:
         queryset = User.objects.all()
         resource_name = 'user'
@@ -27,6 +27,9 @@ class WardResource(ModelResource):
         authorization = Authorization()                
 
 class ComplaintResource(ModelResource):
+    user = fields.ForeignKey(UserResource, 'user')
+    category = fields.ForeignKey(CategoryResource, 'category')
+    
     class Meta:
         queryset = Complaint.objects.all()
         resource_name = 'complaint'

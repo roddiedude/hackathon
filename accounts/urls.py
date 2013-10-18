@@ -10,4 +10,5 @@ urlpatterns = patterns('',
      url(r'^signup', views.signup, name='signup'),
      url(r'^sign-up$', views.partial_sign_up, name='sign-up'),
      url(r'^home$', views.partial_home, name='home'),
+     url(r'^info$', views.info, name='info'),
 )
