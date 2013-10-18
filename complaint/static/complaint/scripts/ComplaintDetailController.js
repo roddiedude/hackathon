@@ -12,6 +12,32 @@ app.controller('ControlDetailController', function($scope, $http, $modal) {
 		});
 	}
 	
+	$scope.addNewComment = function() {
+		var new_comment = {
+				comment : $scope.complaint.new_comment,
+				complaint : $scope.complaint.resource_uri,
+				date_entered : new Date(),
+				user : $scope.current_user.resource_uri,
+				user_object : $scope.current_user
+			};
+		
+		$http({
+			url : "/api/v1/comment/",
+			method : 'POST',
+			data : new_comment,
+			headers : {
+				'content-type' : 'application/json'
+			}
+		})
+		.success(function(data) {
+			$scope.complaint.new_comment = '';
+			$scope.complaint.comments.push(new_comment);
+		})
+		.error(function(data) {
+			
+		});
+	}
+	
 	$http.get('/accounts/info').success(
 		function(data){
 			$scope.current_user = {}
@@ -37,7 +63,16 @@ app.controller('ControlDetailController', function($scope, $http, $modal) {
 				$http.get($scope.complaint.locality).success(function(data){
 					$scope.complaint.locality_object = data;
 				})
-			})
+				
+				$http.get('/complaint/comments/'+ complaint_id).success(function(data){					
+					$scope.complaint.comments = data;
+					$scope.complaint.comments.forEach(function(comment){
+						$http.get(comment.user).success(function(data) {
+							comment.user_object = data;
+						});												
+					});
+				})			
+			})		
 })
 
 
