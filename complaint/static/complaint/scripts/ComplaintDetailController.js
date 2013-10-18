@@ -45,6 +45,10 @@ app.controller('ControlDetailController', function($scope, $http, $modal) {
 				});
 	}
 	
+	$scope.back = function() {
+		document.location.href = document.referrer;
+	}
+	
 	$http.get('/accounts/info').success(
 		function(data){
 			$scope.current_user = {}
@@ -63,8 +67,7 @@ app.controller('ControlDetailController', function($scope, $http, $modal) {
 				})
 				
 				$http.get($scope.complaint.category).success(function(data) {
-					$scope.complaint.category_object = data;					
-					
+					$scope.complaint.category_object = data;
 				})
 				
 				$http.get($scope.complaint.locality).success(function(data){
@@ -112,6 +115,14 @@ app.controller("ComplaintController", function($scope, $http) {
 		})
 		.success(function(data) {
 			$scope.cancel();
+			
+			$http.get($scope.complaint.category).success(function(data) {
+				$scope.complaint.category_object = data;
+			})
+			
+			$http.get($scope.complaint.locality).success(function(data){
+				$scope.complaint.locality_object = data;
+			})
 		})
 		.error(function(data) {
 			

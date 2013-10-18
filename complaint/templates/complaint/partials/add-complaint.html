@@ -9,16 +9,16 @@
 			</div>
 		</div>
 
-				<!-- Expiry-->
-				<div class="control-group">
-					<label class="control-label" for="category">Category</label>
-					<div class="controls">
-						<select class="" name="Category-list" id="category-list"
-							ng-model="complaint.category" value={[{complaint.category}]}>
-							<option ng-repeat="category in categories" id={[{category.id}]} value="{[{ category.resource_uri }]}"> {[{category.name}]}</option>
-						</select>
-
-
+		<!-- Expiry-->
+		<div class="control-group">
+			<label class="control-label" for="category">Category</label>
+			<div class="controls">
+				<select class="" name="Category-list" id="category-list"
+					ng-model="complaint.category" value={[{complaint.category}]}>
+					<option ng-repeat="category in categories" id={[{category.id}]}
+						value="{[{ category.resource_uri }]}">
+						{[{category.name}]}</option>
+				</select>
 			</div>
 		</div>
 		<!-- CVV -->
@@ -26,12 +26,13 @@
 			<label class="control-label" for="locality">Locality</label>
 			<div class="controls">
 
-						<select class="" name="locality"
-							ng-model="complaint.locality" value="complaint.locality">
-							<option ng-repeat="locality in locations" id ="{[{locality.id}]}" value="{[{ locality.resource_uri}]}">{[{locality.name}]}</option>
-						</select>
-					</div>
-				</div>
+				<select class="" name="locality" ng-model="complaint.locality"
+					value="complaint.locality">
+					<option ng-repeat="locality in locations" id="{[{locality.id}]}"
+						value="{[{ locality.resource_uri}]}">{[{locality.name}]}</option>
+				</select>
+			</div>
+		</div>
 
 		<div class="control-group">
 			<label class="control-label" for="Address">Address</label>
@@ -68,8 +69,7 @@
 		<div class="control-group">
 			<label class="control-label" for="Info">Information</label>
 			<div class="controls">
-				<textarea class="" rows="4"
-					placeholder="Decribe your complaint"
+				<textarea class="" rows="4" placeholder="Decribe your complaint"
 					ng-model="complaint.information"></textarea>
 			</div>
 		</div>
