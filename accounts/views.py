@@ -17,6 +17,10 @@ def landing(request):
     return render(request, 'accounts/landing.html')
 
 @login_required
+def admin_landing(request):
+    return render(request, 'accounts/admin-landing.html')
+
+@login_required
 def partial_edit(request):
     return render(request, 'accounts/partials/edit.html')
 
@@ -43,7 +47,7 @@ def login(request):
 @login_required
 def logout(request):
     auth_logout(request)
-    return HttpResponseRedirect(reverse('accounts:'))
+    return HttpResponseRedirect(reverse('accounts:homepage'))
 
 @csrf_exempt
 def signup(request):
@@ -92,3 +96,5 @@ def info(request):
     json = userResource.serialize(None, bundles, "application/json")
     return HttpResponse(json, content_type='json')
 
+def locality(request):
+    return render(request, 'accounts/locality.html')

@@ -4,17 +4,17 @@ app.controller('HomeController', function($scope, $http, $modal) {
 			templateUrl : 'addComplaint.html',
 			controller : MessageCtrl,
 			resolve : {
-				messageText : function() {
-					return $scope.messageText;
+				complaint : function() {
+					return $scope.complaint;
 				}
 			}
 		});
 	}
 });
 
-var MessageCtrl = function ($scope, $modalInstance, messageText) {
+var MessageCtrl = function ($scope, $modalInstance, complaint) {
 
-    $scope.messageBody = messageText;
+    $scope.complaint = complaint;
     
     $modalInstance.keyboard = 'static';
 

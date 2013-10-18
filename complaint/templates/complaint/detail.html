@@ -1,1 +1,256 @@
-Welcome to complaints detail!
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<title>Home page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css"
+	href="{% static 'css/bootstrap.css' %}" />
+<link rel="stylesheet" type="text/css"
+	href="{% static 'css/bootstrap-responsive.css' %}" />
+
+<style type="text/css">
+.nav,.pagination,.carousel a {
+	cursor: pointer;
+}
+</style>
+
+<script src="{% static 'scripts/jquery/jquery-1.10.2.js' %}"></script>
+<script src="{% static 'scripts/bootstrap/bootstrap.js' %}"></script>
+<script src="{% static 'scripts/angular/angular.js' %}"></script>
+<script src="{% static 'scripts/angular/angular-file-upload.js' %}"></script>
+<script src="{% static 'scripts/angular/ui-bootstrap-tpls-0.6.0.js' %}"></script>
+
+<script src="{% static 'scripts/js/app.js' %}"></script>
+<script src="{% static 'scripts/js/directives.js' %}"></script>
+<script src="{% static 'scripts/js/services.js' %}"></script>
+<script
+	src="{% static 'complaint/scripts/ComplaintDetailController.js' %}"></script>
+
+<script>
+	var complaint_id = {{ complaint_id }}
+</script>
+
+
+</head>
+<body ng-controller="ControlDetailController">
+
+	<div class="head">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="span6">
+					<h1 class="muted">My City</h1>
+				</div>
+
+				<div class="span4 offset2" style="margin-top: 15px;">
+
+					<button type="button" class="btn btn-link pull-right">Sign
+						Out</button>
+					<button type="button" class="btn btn-link pull-right">My
+						Account</button>
+
+					<label class="label">Select City</label> <select class="span6"
+						name="locality">
+						<option></option>
+						<option value="13">Adayar</option>
+						<option value="14">Guindy</option>
+						<option value="15">Besant Nagar</option>
+						<option value="16">Anna Nagar</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="navbar navbar-inverse nav">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a> <a class="brand" href="/">My City</a>
+				<div class="nav-collapse collapse">
+					<ul class="nav">
+						<li class="divider-vertical"></li>
+						<li><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
+						<li class="active"><a href="#"><i
+								class="icon-home icon-white"></i> Complaints</a></li>
+						<li><a href="#"><i class="icon-home icon-white"></i> My
+								City</a></li>
+
+					</ul>
+
+				</div>
+				<form class="navbar-form form-search pull-right"
+					accept-charset="UTF-8" action="http://bootsnipp.com/search"
+					method="POST">
+					<div class="input-append">
+						<input class="span2 search-query" type="text" placeholder="search"
+							name="q">
+						<button class="btn" type="submit">Search</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span1">
+				<a href="#" class="btn"><i class="icon-backward"></i> <strong>Back</strong></a>
+			</div>
+			<div class="span8">
+				<h2 class="text-info">Complaint Details</h2>
+			</div>
+			<div class="span3">
+				<div class="pull-right">
+					<a href="#" class="btn" type="button">Withdraw</a> <a href="#"
+						class="btn" type="button" ng-show="is_complained_me" ng-click="postComplaint()">Edit</a>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6 well">
+
+				<form class="form-horizontal" action='' method="POST">
+					<fieldset>
+						<div class="control-group">
+							<!-- Username -->
+							<p>
+								<label class="label control-label" for="Title">Title:</label>&nbsp;
+								<span id="Title" class="text-info large"><b font size="8">
+										{[{ complaint.title }]} </b></span>
+							</p>
+							<p>
+								<label class="label control-label" for="Title">Category:</label>&nbsp;
+								<span id="Title" class="text-info large"><b font size="8">
+										{[{ complaint.category_object.name }]} </b></span>
+							</p>
+							<p>
+								<label class="label control-label" for="CId">Complaint
+									ID:</label>&nbsp; <span id="CId" class="text-info large"><b font
+									size="8"> {[{ complaint.id }]}  </b></span>
+							</p>
+							<p>
+								<label class="label control-label" for="Locality">Locality:</label>&nbsp;
+								<span id="Locality" class="sp text-info large"><b font
+									size="8"> {[{ complaint.locality_object.name }]} </b></span>
+							</p>
+							<!-- Username -->
+							<p>
+								<label class="label control-label" for="SubmtdBy">Submitted
+									By:</label> &nbsp; <span id="SubmtdBy" class="text-info large"><b
+									font size="8"> {[{ complaint.user_object.first_name }]} {[{ complaint.user_object.last_name }]} </b></span>
+							</p>
+							<!-- Username -->
+							<p>
+								<label class="label control-label" for="Status">Status:</label>&nbsp;
+								<span id="Status" class="text-info large"><b font
+									size="8"> Open </b></span>
+							</p>
+							<!-- Username -->
+							<label class="label control-label" for="Description">Description:</label>&nbsp;
+
+						</div>
+
+						<div class="control-group">
+							<textarea class="span12" rows="6" placeholder="" disabled="disabled">{[{ complaint.information }]}</textarea>
+						</div>
+						<div class="btn-toolbar pull-right">
+							<div class="btn-group">
+								<a href="#" class="btn btn-inverse disabled"><i
+									class="icon-white icon-thumbs-up"></i></a>
+							</div>
+							<div class="btn-group">
+								<button class="btn btn-success pull-right">Follow</button>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<div class="span6 well">
+
+				<div class="control-group">
+
+					<div class="controls">
+						<textarea class="span12" rows="4"
+							placeholder="Enter some comments"></textarea>
+						<p>
+							<button class="btn btn-success pull-right">Post Comment</button>
+						</p>
+					</div>
+				</div>
+				<BR /> <BR />
+
+				<div class="container-fluid well">
+					<div class="media">
+						<a class="pull-left" href="#"> <img class="media-object"
+							data-src="holder.js/140x140" alt="64x64"
+							style="width: 150px; height: 150px;"
+							src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAABxElEQVR4nO3WLXLDMBCG4dz/KAtEBAwMQjxjYmAgYmAgEqgrbNGqTeKkP3Yn2vYFH5GVHe8zWsWnUoqSn+f06hfwHgABBNB1AAQQQNcBEEAAXQdAAAF0HQABBNB1AAQQQNcBEEAAXQdAAAF0HQABBNB1AAQQQNcBEMA/CJhz1vP5rCKiIqLjOD7cG0JQEWmq/ksBL5dLfemP2WpyGIb6vJX6Lwccx1FFRIdh0FKKruuqIqJ931/ts/XvNvjb9V8O2HXdl144xqgxxrsGc84qIhpCqGt24nLOu+s3D2jN2/iEEO7Ga5omFRFNKW02aKcspVT3TtN0WP3mAbdiI2d3WIzxav+jExRC0K7rDq/fPGBKSUsp9RTYSNq/57IsTxtclqU+W9f18PrNAtq9s4X67ATd/mae57o+z/Ph9ZsFtLvJ7iw7Sbcj9VmDIQTt+76O8dH1mwV89J1mDd9mqzlDSinVEb294/bUbxqwlHL1uRFjfNjcVoP2/WYnqpT3sbW7cE99F4D/KQACCKDrAAgggK4DIIAAug6AAALoOgACCKDrAAgggK4DIIAAug6AAALoOgACCKDrAAgggK4DIIAAug6AO/MG7GgALd00A7IAAAAASUVORK5CYII=">
+						</a>
+						<div class="media-body">
+							<h4 class="media-heading">Media heading</h4>
+							Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+							scelerisque ante sollicitudin commodo. Cras purus odio,
+							vestibulum in vulputate at, tempus viverra turpis. Fusce
+							condimentum nunc ac nisi vulputate fringilla. Donec lacinia
+							congue felis in faucibus.
+						</div>
+					</div>
+
+					<div class="media">
+						<a class="pull-left" href="#"> <img class="media-object"
+							data-src="holder.js/140x140" alt="64x64"
+							style="width: 150px; height: 150px;"
+							src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAABxElEQVR4nO3WLXLDMBCG4dz/KAtEBAwMQjxjYmAgYmAgEqgrbNGqTeKkP3Yn2vYFH5GVHe8zWsWnUoqSn+f06hfwHgABBNB1AAQQQNcBEEAAXQdAAAF0HQABBNB1AAQQQNcBEEAAXQdAAAF0HQABBNB1AAQQQNcBEMA/CJhz1vP5rCKiIqLjOD7cG0JQEWmq/ksBL5dLfemP2WpyGIb6vJX6Lwccx1FFRIdh0FKKruuqIqJ931/ts/XvNvjb9V8O2HXdl144xqgxxrsGc84qIhpCqGt24nLOu+s3D2jN2/iEEO7Ga5omFRFNKW02aKcspVT3TtN0WP3mAbdiI2d3WIzxav+jExRC0K7rDq/fPGBKSUsp9RTYSNq/57IsTxtclqU+W9f18PrNAtq9s4X67ATd/mae57o+z/Ph9ZsFtLvJ7iw7Sbcj9VmDIQTt+76O8dH1mwV89J1mDd9mqzlDSinVEb294/bUbxqwlHL1uRFjfNjcVoP2/WYnqpT3sbW7cE99F4D/KQACCKDrAAgggK4DIIAAug6AAALoOgACCKDrAAgggK4DIIAAug6AAALoOgACCKDrAAgggK4DIIAAug6AO/MG7GgALd00A7IAAAAASUVORK5CYII=">
+						</a>
+						<div class="media-body">
+							<h4 class="media-heading">Media heading</h4>
+							Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+							scelerisque ante sollicitudin commodo. Cras purus odio,
+							vestibulum in vulputate at, tempus viverra turpis. Fusce
+							condimentum nunc ac nisi vulputate fringilla. Donec lacinia
+							congue felis in faucibus.
+						</div>
+					</div>
+
+					<div class="media">
+						<a class="pull-left" href="#"> <img class="media-object"
+							data-src="holder.js/140x140" alt="64x64"
+							style="width: 150px; height: 150px;"
+							src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAABxElEQVR4nO3WLXLDMBCG4dz/KAtEBAwMQjxjYmAgYmAgEqgrbNGqTeKkP3Yn2vYFH5GVHe8zWsWnUoqSn+f06hfwHgABBNB1AAQQQNcBEEAAXQdAAAF0HQABBNB1AAQQQNcBEEAAXQdAAAF0HQABBNB1AAQQQNcBEMA/CJhz1vP5rCKiIqLjOD7cG0JQEWmq/ksBL5dLfemP2WpyGIb6vJX6Lwccx1FFRIdh0FKKruuqIqJ931/ts/XvNvjb9V8O2HXdl144xqgxxrsGc84qIhpCqGt24nLOu+s3D2jN2/iEEO7Ga5omFRFNKW02aKcspVT3TtN0WP3mAbdiI2d3WIzxav+jExRC0K7rDq/fPGBKSUsp9RTYSNq/57IsTxtclqU+W9f18PrNAtq9s4X67ATd/mae57o+z/Ph9ZsFtLvJ7iw7Sbcj9VmDIQTt+76O8dH1mwV89J1mDd9mqzlDSinVEb294/bUbxqwlHL1uRFjfNjcVoP2/WYnqpT3sbW7cE99F4D/KQACCKDrAAgggK4DIIAAug6AAALoOgACCKDrAAgggK4DIIAAug6AAALoOgACCKDrAAgggK4DIIAAug6AO/MG7GgALd00A7IAAAAASUVORK5CYII=">
+						</a>
+						<div class="media-body">
+							<h4 class="media-heading">Media heading</h4>
+							Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+							scelerisque ante sollicitudin commodo. Cras purus odio,
+							vestibulum in vulputate at, tempus viverra turpis. Fusce
+							condimentum nunc ac nisi vulputate fringilla. Donec lacinia
+							congue felis in faucibus.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/ng-template" id="addComplaint.html">
+	<div ng-controller="ComplaintController">
+        <div class="modal-header">
+            <h4>Post a Complaint</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row-fluid" ng-include="'/complaint/add-complaint'">
+			</div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" ng-click="updateComplaint()">Update Complaint</button>
+			<button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+        </div>
+	</div>
+    </script>
+</body>
+</html>
