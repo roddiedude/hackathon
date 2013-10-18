@@ -17,6 +17,10 @@ def landing(request):
     return render(request, 'accounts/landing.html')
 
 @login_required
+def admin_landing(request):
+    return render(request, 'accounts/admin-landing.html')
+
+@login_required
 def partial_edit(request):
     return render(request, 'accounts/partials/edit.html')
 
