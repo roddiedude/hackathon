@@ -9,8 +9,8 @@ class Location(models.Model):
     def __unicode__(self):  # Python 3: def __str__(self):
         return self.name
     
-class UserInfo(models.Model):
-    user = models.ForeignKey(User,related_name='user-userinfo')
-    location = models.ForeignKey(Location,related_name='userinfo-location')
-    adress = models.CharField(max_length=200)
-    city = models.CharField(max_length=200)
+# class UserInfo(models.Model):
+#     user = models.ForeignKey(User,related_name='user-userinfo')
+#     location = models.ForeignKey(Location,related_name='userinfo-location')
+#     adress = models.CharField(max_length=200)
+#     city = models.CharField(max_length=200)

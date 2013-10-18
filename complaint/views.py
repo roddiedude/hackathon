@@ -2,10 +2,11 @@ from django.shortcuts import render,render_to_response
 from django.http import HttpResponse
 from django.shortcuts import get_list_or_404, get_object_or_404
 from complaint.models import Complaint
+from complaint.models import Following
 from category.models import Category
 from department.models import Department
 from location.models import Location
-from location.models import UserInfo
+from accounts.models import UserInfo
 from django.core import serializers
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponse
@@ -14,10 +15,8 @@ from complaint.models import Complaint
 from category.models import Category
 from department.models import Department
 from django.core import serializers
-#from api.resources import ComplaintResource
 from hackathon.api import *
-#from api.resources import ComplaintResource
-from hackathon.api import *
+
 
 def index(request):
     return render(request, 'children/viewcomplaints.html')
@@ -72,6 +71,28 @@ def complaints_in_mylocality(request):
 
     list_json = complaint.serialize(None, bundles, "application/json")
     return HttpResponse(list_json, content_type='json')
+
+
+def followers_of_my_complaints(request,complaint_id):
+    following = FollowingResource()
+    
+    cmp = Complaint.objects.get(pk=complaint_id)
+    followers = get_list_or_404(Following,complaint=cmp)   
+       
+    bundles = []
+    for obj in followers:
+        bundle = following.build_bundle(obj=obj, request=request)
+        bundles.append(following.full_dehydrate(bundle, for_list=True))
+
+    list_json = following.serialize(None, bundles, "application/json")
+    return HttpResponse(list_json, content_type='json')
+
+def my_complaints_followercount(request,complaint_id):
+    following = FollowingResource()
+    followers = followers_of_my_complaints(complaint_id)
+    cnt = followers.count
+    following.build_bundle(obj=cnt, request=request)
+    
 
 
 def partial_add_complaint(request):
