@@ -92,3 +92,5 @@ def info(request):
     json = userResource.serialize(None, bundles, "application/json")
     return HttpResponse(json, content_type='json')
 
+def locality(request):
+    return render(request, 'accounts/locality.html')
