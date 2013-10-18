@@ -16,6 +16,9 @@ def home(request):
 def landing(request):
     return render(request, 'accounts/landing.html')
 
+@login_required
+def partial_edit(request):
+    return render(request, 'accounts/partials/edit.html')
 
 @csrf_exempt
 def login(request):
@@ -40,7 +43,7 @@ def login(request):
 @login_required
 def logout(request):
     auth_logout(request)
-    return HttpResponseRedirect(reverse('accounts:home'))
+    return HttpResponseRedirect(reverse('accounts:'))
 
 @csrf_exempt
 def signup(request):

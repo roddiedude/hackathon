@@ -12,9 +12,14 @@
 	href="{% static 'css/bootstrap-responsive.css' %}" />
 
 <style type="text/css">
-.nav,.pagination,.carousel a {
+.nav, .pagination, .carousel a {
 	cursor: pointer;
 }
+
+a.icon {
+	cursor: pointer;
+}
+
 #loginModal
 {
 	height: 100%;
@@ -44,12 +49,8 @@
 				</div>
 
 				<div class="span4 offset2" style="margin-top: 15px;">
-
-					<button type="button" class="btn btn-link pull-right">Sign
-						Out</button>
-					<button type="button" class="btn btn-link pull-right">My
-						Account</button>
-
+					<a href="/accounts/logout" class="btn btn-link pull-right">Sign Out</a>
+					<a href="/accounts/#/edit" class="btn btn-link pull-right">My Account</a>
 					<label class="label">Select City</label> <select class="span6"
 						name="locality">
 						<option></option>
@@ -118,7 +119,7 @@
 													<div class="row-fluid">
 														<div class="span6">
 															<div class="caption">
-												              <h4><a ng-href="complaint/{[{ complaint.id }]}">{[{ complaint.title }]}</a></h4>
+												              <h4><a ng-href="complaint/detail/{[{ complaint.id }]}">{[{ complaint.title }]}</a></h4>
 												              	<p>{[{ complaint.information }]}</p>
 												              	<p><i class="icon icon-map-marker"></i> {[{ complaint.locality }]}</p>
 												            </div>
@@ -127,12 +128,10 @@
 															<a href="#" class="btn btn-large btn-link" type="button">3
 																Followers</a>
 														</div>
-														<div class="span2">
-															<div>
-																<label class="label" style="cursor: auto">{[{ complaint.upvotes }]}</label> <i
-																	class="icon-black icon-thumbs-up"></i>
-															</div>
-														</div>
+														<div class="input-group input-group-lg span2">
+												        	<span class="input-group-addon">{[{ complaint.upvotes }]}</span>
+												        	<i class="icon-black icon-thumbs-up"></i>
+												      	</div>
 													</div>
 												</div>
 											</div>
@@ -147,7 +146,7 @@
 													<div class="row-fluid">
 														<div class="span6">
 															<div class="caption">
-												              <h4><a ng-href="complaint/{[{ complaint.id }]}">{[{ complaint.title }]}</a></h4>
+												              <h4><a ng-href="complaint/detail/{[{ complaint.id }]}">{[{ complaint.title }]}</a></h4>
 												              	<p>{[{ complaint.information }]}</p>
 												              	<p><i class="icon icon-map-marker"></i> {[{ complaint.locality }]}</p>
 												            </div>
@@ -158,8 +157,8 @@
 														</div>
 														<div class="span2">
 															<div>
-																<label class="label" style="cursor: auto">{[{ complaint.upvotes }]}</label> <i
-																	class="icon-black icon-thumbs-up"></i>
+																<span class="label" style="cursor: auto">{[{ complaint.upvotes }]}</span>
+																<a class="icon btn btn-success btn-large" ng-click="upvote(complaint)"><i class="icon-white icon-chevron-up"></i> Upvote</a>
 															</div>
 														</div>
 													</div>
