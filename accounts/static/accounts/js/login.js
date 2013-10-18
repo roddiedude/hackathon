@@ -8,7 +8,7 @@ app.controller('LoginController', function ($scope, $http, $location) {
             headers: { 'content-type': 'application/json' }
         }).success(function (data) {
             if (data.message == 'success') {
-                document.location.href = '../../Index.htm';
+                document.location.href = data.redirect
             }
             else {
                 $scope.incorrectCredentials = true;
