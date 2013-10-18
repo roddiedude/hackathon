@@ -92,6 +92,7 @@ def upvote(request, complaint_id):
     complaint = get_object_or_404(Complaint, pk=complaint_id)
     complaint.upvotes = complaint.upvotes + 1
     complaint.save()
+    return HttpResponse("")
 
 def detail(request, complaint_id):
     return render(request, 'complaint/detail.html',  {'complaint_id':complaint_id})
