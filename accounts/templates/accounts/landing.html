@@ -1,1 +1,79 @@
-Welcome to landing page!
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css"
+	href="{% static 'css/bootstrap.css' %}" />
+<link rel="stylesheet" type="text/css"
+	href="{% static 'css/bootstrap-responsive.css' %}" />
+
+<style type="text/css">
+.nav,.pagination,.carousel a {
+	cursor: pointer;
+}
+</style>
+
+<script src="{% static 'scripts/jquery/jquery-1.10.2.js' %}"></script>
+<script src="{% static 'scripts/bootstrap/bootstrap.js' %}"></script>
+<script src="{% static 'scripts/angular/angular.js' %}"></script>
+<script src="{% static 'scripts/angular/angular-file-upload.js' %}"></script>
+<script src="{% static 'scripts/angular/ui-bootstrap-tpls-0.6.0.js' %}"></script>
+
+<script src="{% static 'scripts/js/app.js' %}"></script>
+<script src="{% static 'scripts/js/directives.js' %}"></script>
+<script src="{% static 'scripts/js/services.js' %}"></script>
+<script src="{% static 'accounts/js/home.js' %}"></script>
+<script src="{% static 'complaint/scripts/ComplaintController.js' %}"></script>
+</head>
+
+<body ng-controller="HomeController">
+	<div class="navbar navbar-inverse nav">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a> <a class="brand" href="#" name="top">My City</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="span5 well">
+			<h3>My Complaints</h3>
+			<button type="button" class="btn btn-primary"
+				ng-click="postComplaint()">Post a Complaint</button>
+				
+			<div ng-include="'complaint/my-complaints'">
+				
+			</div>
+		</div>
+		<div class="span2"></div>
+		<div class="span5 well">
+			<h3>Complaints in My Locality</h3>
+		</div>
+	</div>
+
+	<script type="text/ng-template" id="addComplaint.html">
+	<div ng-controller="ComplaintController">
+        <div class="modal-header">
+            <h4>Post a Complaint</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row-fluid" ng-include="'complaint/add-complaint'">
+			</div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" ng-click="postComplaints($event)">Post
+					Complaint</button>
+			<button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+        </div>
+	</div>
+    </script>
+</body>

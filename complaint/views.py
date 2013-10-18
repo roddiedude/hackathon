@@ -58,5 +58,11 @@ def complaints_in_myplate(request):
 
     list_json = complaint.serialize(None, bundles, "application/json")
     return HttpResponse(list_json, content_type='json')
-    
-    
+
+
+def partial_add_complaint(request):
+    return render(request, 'complaint/partials/add-complaint.html')
+
+def partial_my_complaints(request):
+    return render(request, 'complaint/partials/my-complaints.html')
+

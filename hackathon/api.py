@@ -5,23 +5,29 @@ from category.models import Category
 from ward.models import Ward
 from complaint.models import Complaint
 from department.models import Department
+<<<<<<< HEAD
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
+from tastypie.authorization import Authorization
 
 
-class UserResource(ModelResource):
+
+class UserResource(ModelResource):    
     class Meta:
         queryset = User.objects.all()
         resource_name = 'user'
-            
+ 
+
 class CategoryResource(ModelResource):
     class Meta:
         queryset = Category.objects.all()
         resource_name = 'category'
+        authorization = Authorization()
         
 class WardResource(ModelResource):    
     class Meta:
         queryset = Ward.objects.all()
-        resource_name = 'ward'                
+        resource_name = 'ward'
+        authorization = Authorization()                
 
 class ComplaintResource(ModelResource):
     user = fields.ForeignKey(UserResource, 'user')
@@ -29,12 +35,15 @@ class ComplaintResource(ModelResource):
     filtering = {
         'user': ALL_WITH_RELATIONS,
     }
+
     
     class Meta:
         queryset = Complaint.objects.all()
         resource_name = 'complaint'
+        authorization = Authorization()
 
 class DepartmentResource(ModelResource):
     class Meta:
         queryset = Department.objects.all()
-        resource_name = 'department'       
+        resource_name = 'department'
+        authorization = Authorization()       

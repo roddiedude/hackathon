@@ -6,6 +6,7 @@ from django.utils import simplejson
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from hackathon.api import *
 
 
 def home(request):
@@ -42,28 +43,49 @@ def logout(request):
     return HttpResponseRedirect(reverse('accounts:home'))
 
 @csrf_exempt
-def signedup(request):
-    response = {}
-        
-    if request.is_ajax():
-        if request.method == 'POST':
-            userjson = simplejson.loads(request.raw_post_data)            
+def signup(request):
+    response = {}        
 
-            try:
-                u = User.objects.get(username__exact=userjson['userName'])
-            except User.DoesNotExist:
-                user = User.objects.create_user(userjson['userName'],userjson['email'], userjson['password']);
-                user.last_name = userjson['lastName']
-                user.first_name = userjson['firstName']
-                user.save();
-                
-                response['message'] = 'Success'
-                response['redirect'] = reverse('accounts:landing')
-                return HttpResponse(simplejson.dumps(response))
-            else:
-                
-                response['message'] = 'User already present'
-                return HttpResponse(simplejson.dumps(response))
-    
+    if request.method == 'POST':
+        userjson = simplejson.loads(request.raw_post_data)            
+
+        try:
+            u = User.objects.get(username__exact=userjson['userName'])
+        except User.DoesNotExist:
+            user = User.objects.create_user(userjson['userName'],userjson['email'], userjson['password']);
+            user.last_name = userjson['lastName']
+            user.first_name = userjson['firstName']
+            user.save();
+            
+            user = authenticate(username=userjson['userName'], password=userjson['password'])
+            auth_login(request, user)
+            
+            response['message'] = 'success'
+            response['redirect'] = reverse('accounts:landing')
+            return HttpResponse(simplejson.dumps(response))
+        else:
+            
+            response['message'] = 'User already present'
+            return HttpResponse(simplejson.dumps(response))
+
     response['message'] = 'failure'
     return HttpResponse(simplejson.dumps(response))
+
+def partial_sign_up(request):
+    return render(request, 'accounts/partials/sign-up.html')
+
+def partial_home(request):
+    return render(request, 'accounts/partials/home.html')
+       
+@login_required      
+def info(request):
+    userResource = UserResource()
+    usr = request.user
+
+    bundles = []    
+    bundle = userResource.build_bundle(obj=usr, request=request)
+    
+    bundles.append(userResource.full_dehydrate(bundle))
+    json = userResource.serialize(None, bundles, "application/json")
+    return HttpResponse(json, content_type='json')
+
