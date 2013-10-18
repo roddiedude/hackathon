@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from hackathon.api import *
+from department.models import Department
 
 
 def home(request):
@@ -26,20 +27,31 @@ def partial_edit(request):
 
 @csrf_exempt
 def login(request):
-    response = {}    
+    response = {}
+       
 
     if request.method == 'POST':
         userjson = simplejson.loads(request.raw_post_data)
         
+        
         """"TODO: check if user already exists"""
-        user = authenticate(username=userjson['userName'], password=userjson['password'])
-        if user is not None:
+        usr = authenticate(username=userjson['userName'], password=userjson['password'])
+        department = Department.objects.get(user = usr)
+              
+         
+        if usr is not None:
             # the password verified for the user
-            if user.is_active:
-                auth_login(request, user)
+            if usr.is_active:
+                auth_login(request, usr)
                 response['message'] = 'success'
-                response['redirect'] = reverse('accounts:landing')
-                return HttpResponse(simplejson.dumps(response))
+                if department is not None:
+                    response['redirect'] = reverse('accounts:admin_landing')
+                else:
+                    response['redirect'] = reverse('accounts:landing')
+                           
+                 
+            return HttpResponse(simplejson.dumps(response))
+            
                 
     response['message'] = 'Unknown username or password'    
     return HttpResponse(simplejson.dumps(response))
