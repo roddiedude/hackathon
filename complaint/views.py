@@ -64,8 +64,8 @@ def upvote(request, complaint_id):
     complaint.upvotes = complaint.upvotes + 1
     complaint.save()
 
-def detail(request):
-    return render(request, 'complaint/detail.html')
+def detail(request, complaint_id):
+    return render(request, 'complaint/detail.html',  {'complaint_id':complaint_id})
 
 def partial_add_complaint(request):
     return render(request, 'complaint/partials/add-complaint.html')
