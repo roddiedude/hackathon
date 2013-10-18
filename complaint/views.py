@@ -6,8 +6,12 @@ def index(request):
 def addcomplaint(request):
     return render(request, 'complaint/add-complaint.html')## Create your views here.
 
+def detail(request):
+    return render(request, 'complaint/detail.html')
+
 def partial_add_complaint(request):
     return render(request, 'complaint/partials/add-complaint.html')
 
 def partial_my_complaints(request):
     return render(request, 'complaint/partials/my-complaints.html')
+
