@@ -11,6 +11,9 @@ class Department(models.Model):
     contact_numbers = models.CharField(max_length=200)
     working_hours_days = models.CharField(max_length=200)
     categories = models.ManyToManyField(Category)
+    
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return self.department_name
      
     
     
