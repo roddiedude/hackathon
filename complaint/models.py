@@ -17,8 +17,13 @@ class Complaint(models.Model):
     email = models.CharField(max_length=200)
     phone = models.CharField(max_length=200)
     
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return self.title
+    
 class Comments(models.Model):
     complaint = models.ForeignKey(Complaint)
     user = models.ForeignKey(User)
     comment = models.CharField(max_length=2000)
+    
+
     
