@@ -14,7 +14,7 @@
 					<label class="control-label" for="category">Category</label>
 					<div class="controls">
 						<select class="" name="Category-list" id="category-list"
-							ng-model="complaint.category_object" value={[{complaint.category}]}>
+							ng-model="complaint.category" value={[{complaint.category}]}>
 							<option ng-repeat="category in categories" id={[{category.id}]} value="{[{ category.resource_uri }]}"> {[{category.name}]}</option>
 						</select>
 

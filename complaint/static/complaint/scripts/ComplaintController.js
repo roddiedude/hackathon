@@ -14,6 +14,11 @@ app.controller("ComplaintController", function($scope, $http) {
 		$scope.categories = data.objects;
 	});
 	
+	$http.get('/api/v1/location/?format=json')
+	.success(function(data) {
+		$scope.locations = data.objects;
+});
+	
 	$http.get('/accounts/info')
 		.success(function(data) {
 			$scope.complaint.user = data[0].resource_uri;
