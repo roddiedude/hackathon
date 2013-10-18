@@ -61,7 +61,7 @@ def complaints_in_myplate(request):
 
 def upvote(request, complaint_id):
     complaint = get_object_or_404(Complaint, pk=complaint_id)
-    complaint.upvotes = complaint.upvotes +1;
+    complaint.upvotes = complaint.upvotes + 1
     complaint.save()
 
 def detail(request):

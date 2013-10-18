@@ -9,5 +9,6 @@ urlpatterns = patterns('',
      url(r'^complaintsassigned/$', views.complaints_in_myplate, name='complaints_in_my_plate'),
      url(r'^add-complaint$', views.partial_add_complaint, name='add-complaint'),
      url(r'^detail$', views.detail, name='detail'),
+     url(r'^upvote/(?P<poll_id>\d+)/$', views.upvote, name='upvote'),
         
 )
