@@ -3,7 +3,8 @@ from django.conf.urls import patterns, include, url
 from accounts import views
 
 urlpatterns = patterns('',
-     url(r'^$', views.home, name='home'),     
+     url(r'^$', views.home, name='home'),
+     url(r'^homepage$', views.home, name='homepage'),          
      url(r'^login$', views.login, name='login'),
      url(r'^landing$', views.landing, name='landing'),          
      url(r'^edit$', views.partial_edit, name='edit'),

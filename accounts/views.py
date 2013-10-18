@@ -43,7 +43,7 @@ def login(request):
 @login_required
 def logout(request):
     auth_logout(request)
-    return HttpResponseRedirect(reverse('accounts:'))
+    return HttpResponseRedirect(reverse('accounts:homepage'))
 
 @csrf_exempt
 def signup(request):
