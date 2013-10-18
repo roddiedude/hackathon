@@ -13,13 +13,13 @@
 <script src="{% static 'scripts/jquery/jquery-1.10.2.js' %}"></script>
 <script src="{% static 'scripts/bootstrap/bootstrap.js' %}"></script>
 <script src="{% static 'scripts/angular/angular.js' %}"></script>
-<script
-	src="{% static 'scripts/angular/ui-bootstrap-tpls-0.6.0.js.js' %}"></script>
+<script src="{% static 'scripts/angular/angular-file-upload.js' %}"></script>
+<script src="{% static 'scripts/angular/ui-bootstrap-tpls-0.6.0.js' %}"></script>
 
 <script src="{% static 'scripts/js/app.js' %}"></script>
 <script src="{% static 'scripts/js/directives.js' %}"></script>
 <script src="{% static 'scripts/js/services.js' %}"></script>
-<script src="{% static 'complaints/js/ComplaintsController.js' %}"></script>
+<script src="{% static 'complaint/scripts/ComplaintController.js' %}"></script>
 
 </head>
 <body ng-app="app">
@@ -33,16 +33,17 @@
 				<div class="control-group">
 					<label class="control-label" for="Title">Title</label>
 					<div class="controls">
-						<input type="text" id="username" name="username" placeholder=""
-							class="input-xlarge">
+						<input type="text" id="title" name="title" placeholder=""
+							class="input-xlarge" ng-model="complaint.title">
 					</div>
 				</div>
-				
+
 				<!-- Expiry-->
 				<div class="control-group">
 					<label class="control-label" for="category">Category</label>
 					<div class="controls">
-						<select class="span2" name="Category-list" id="category-list">
+						<select class="span2" name="Category-list" id="category-list"
+							ng-model="complaint.category">
 							<option></option>
 							<option value="01">Crime and Safety</option>
 							<option value="02">Electricity and Power Supply</option>
@@ -61,7 +62,8 @@
 					<label class="control-label" for="locality">Locality</label>
 					<div class="controls">
 
-						<select class="span2" name="locality">
+						<select class="span2" name="locality"
+							ng-model="complaint.locality">
 							<option></option>
 							<option value="13">Adayar</option>
 							<option value="14">Guindy</option>
@@ -75,7 +77,8 @@
 					<label class="control-label" for="Address">Address</label>
 					<div class="controls">
 						<textarea class="span4" rows="4"
-							placeholder="Enter your complete address"></textarea>
+							placeholder="Enter your complete address"
+							ng-model="complaint.address"></textarea>
 
 					</div>
 				</div>
@@ -84,8 +87,8 @@
 					<label class="control-label" for="Address">Email</label>
 					<div class="controls">
 						<div class="input-prepend">
-							<span class="add-on"><i class="icon-envelope"></i></span><input
-								type="text" id="" name="">
+							<span class="add-on"><i class="icon-envelope"></i></span> <input
+								type="text" id="email" name="email" ng-model="complaint.email">
 						</div>
 
 					</div>
@@ -95,8 +98,8 @@
 					<label class="control-label" for="Address">Phone</label>
 					<div class="controls">
 						<div class="input-prepend">
-							<span class="add-on"><i class="icon-star"></i></span><input
-								type="text" id="" name="">
+							<span class="add-on"><i class="icon-star"></i></span> <input
+								type="text" id="phone" name="phone" ng-model="complaint.phone">
 						</div>
 
 					</div>
@@ -106,28 +109,40 @@
 					<label class="control-label" for="Info">Information</label>
 					<div class="controls">
 						<textarea class="span4" rows="4"
-							placeholder="Decribe your complaint"></textarea>
+							placeholder="Decribe your complaint"
+							ng-model="complaint.information"></textarea>
 
 					</div>
 				</div>
 
-				<div class="control-group">
-					<label class="control-label" for="Address">Image</label>
-					<div class="controls">
+<!-- 				<div class="control-group"> -->
+<!-- 					<label class="control-label" for="Address">Image</label> -->
+<!-- 					<div class="controls"> -->
 
-						<div class="input-prepend input-append">
-							<span class="add-on"><i class="icon-picture"></i></span><input
-								type="text" id="" name="">
-							<button class="btn" type="button">Upload</button>
-						</div>
+<!-- 						<div class="input-prepend input-append"> -->
+<!-- 							<span class="add-on"><i class="icon-picture"></i></span><input -->
+<!-- 								type="text" id="" name=""> -->
+<!-- 							<button class="btn" type="button">Upload</button> -->
+<!-- 						</div> -->
 
-					</div>
-				</div>
-				
+<!-- 						<div> -->
+<!-- 							<input type="text" ng-model="myModelObj"> <input -->
+<!-- 								type="file" ng-file-select="onFileSelect($files)"> <input -->
+<!-- 								type="file" ng-file-select="onFileSelect($files)" multiple> -->
+<!-- 							<div ng-show="dropSupported" class="drop-box" -->
+<!-- 								ng-file-drop="onFileSelect($files);">drop files here</div> -->
+<!-- 							<div ng-show="!dropSupported" -->
+<!-- 								ng-file-drop-available="dropSupported=true">HTML5 Drop -->
+<!-- 								File is not supported!</div> -->
+<!-- 						</div> -->
+
+<!-- 					</div> -->
+<!-- 				</div> -->
+
 				<!-- Submit -->
 				<div class="control-group">
 					<div class="controls">
-						<button class="btn btn-success">Post Complaint</button>
+						<button class="btn btn-success" ng-click="postComplaints($event)">Post Complaint</button>
 						<button class="btn btn-danger">Cancel</button>
 
 					</div>
