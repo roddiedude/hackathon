@@ -70,6 +70,7 @@ class DepartmentResource(ModelResource):
 
 class CommentResource(ModelResource):
     complaint = fields.ForeignKey(ComplaintResource, 'complaint')
+    user = fields.ForeignKey(UserResource, 'user')
     
     class Meta:
         queryset = Comments.objects.all()
