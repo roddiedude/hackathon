@@ -40,3 +40,30 @@ def login(request):
 def logout(request):
     auth_logout(request)
     return HttpResponseRedirect(reverse('accounts:home'))
+
+@csrf_exempt
+def signedup(request):
+    response = {}
+        
+    if request.is_ajax():
+        if request.method == 'POST':
+            userjson = simplejson.loads(request.raw_post_data)            
+
+            try:
+                u = User.objects.get(username__exact=userjson['userName'])
+            except User.DoesNotExist:
+                user = User.objects.create_user(userjson['userName'],userjson['email'], userjson['password']);
+                user.last_name = userjson['lastName']
+                user.first_name = userjson['firstName']
+                user.save();
+                
+                response['message'] = 'Success'
+                response['redirect'] = reverse('accounts:landing')
+                return HttpResponse(simplejson.dumps(response))
+            else:
+                
+                response['message'] = 'User already present'
+                return HttpResponse(simplejson.dumps(response))
+    
+    response['message'] = 'failure'
+    return HttpResponse(simplejson.dumps(response))
