@@ -17,11 +17,13 @@ class UserResource(ModelResource):
     class Meta:
         queryset = User.objects.all()
         resource_name = 'user'
+        authorization = Authorization()
  
 class UserInfoResource(ModelResource):    
     class Meta:
         queryset = UserInfo.objects.all()
         resource_name = 'userinfo'
+        authorization = Authorization()
 
 class CategoryResource(ModelResource):
     class Meta:
@@ -68,6 +70,7 @@ class DepartmentResource(ModelResource):
 
 class CommentResource(ModelResource):
     complaint = fields.ForeignKey(ComplaintResource, 'complaint')
+    user = fields.ForeignKey(UserResource, 'user')
     
     class Meta:
         queryset = Comments.objects.all()
