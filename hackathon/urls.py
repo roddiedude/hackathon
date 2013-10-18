@@ -15,6 +15,7 @@ v1_api.register(UserResource())
 v1_api.register(CategoryResource())
 v1_api.register(WardResource())
 v1_api.register(ComplaintResource())
+v1_api.register(DepartmentResource())
         
 urlpatterns = patterns('',
     # Examples:

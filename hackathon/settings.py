@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     'category',
     'ward',
     'complaint',
+    'department',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

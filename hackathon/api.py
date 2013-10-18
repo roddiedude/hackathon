@@ -4,6 +4,7 @@ from tastypie.resources import ModelResource
 from category.models import Category
 from ward.models import Ward
 from complaint.models import Complaint
+from department.models import Department
 
 
 class UserResource(ModelResource):
@@ -24,4 +25,9 @@ class WardResource(ModelResource):
 class ComplaintResource(ModelResource):
     class Meta:
         queryset = Complaint.objects.all()
-        resource_name = 'complaint'       
+        resource_name = 'complaint'
+
+class DepartmentResource(ModelResource):
+    class Meta:
+        queryset = Department.objects.all()
+        resource_name = 'department'       
