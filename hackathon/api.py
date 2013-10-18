@@ -5,29 +5,35 @@ from category.models import Category
 from ward.models import Ward
 from complaint.models import Complaint
 from department.models import Department
+from tastypie.authorization import Authorization
 
 
 class UserResource(ModelResource):
     class Meta:
         queryset = User.objects.all()
         resource_name = 'user'
+        authorization = Authorization()
         
 class CategoryResource(ModelResource):
     class Meta:
         queryset = Category.objects.all()
         resource_name = 'category'
+        authorization = Authorization()
         
 class WardResource(ModelResource):    
     class Meta:
         queryset = Ward.objects.all()
-        resource_name = 'ward'                
+        resource_name = 'ward'
+        authorization = Authorization()                
 
 class ComplaintResource(ModelResource):
     class Meta:
         queryset = Complaint.objects.all()
         resource_name = 'complaint'
+        authorization = Authorization()
 
 class DepartmentResource(ModelResource):
     class Meta:
         queryset = Department.objects.all()
-        resource_name = 'department'       
+        resource_name = 'department'
+        authorization = Authorization()       

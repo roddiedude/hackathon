@@ -3,14 +3,14 @@ app.config(function ($routeProvider) {
         .when('/home',
             {
                 controller: 'HomeController',
-                templateUrl: '../partials/home.html'
+                templateUrl: '/accounts/home'
             })
         .when('/signup',
             {
                 controller: 'SignupController',
-                templateUrl: '../partials/sign-up.html'
+                templateUrl: '/accounts/sign-up'
             })
-        .otherwise({ redirectTo: '/signup' });
+        .otherwise({ redirectTo: '/home' });
 });
 
 app.controller('HomeController', function($scope) {
@@ -51,9 +51,9 @@ app.controller('SignupController', function($scope, $http, $location) {
             data: $scope.user,
             headers: { 'content-type': 'application/json' }
         }).success(function (data) {
-            if (data.message == 'success') {
-                document.location.href = '/landingPage';
-            }
+        	 if (data.message == 'success') {
+                 document.location.href = data.redirect
+             }
         }).error(function (data) {
             console.log('error occurred while creating user.')
         });
