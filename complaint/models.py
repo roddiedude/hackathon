@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from category.models import Category
+from location.models import Location
 
 # Create your models here.
 class Complaint(models.Model):
@@ -8,7 +9,8 @@ class Complaint(models.Model):
     information = models.CharField(max_length=2000)
     user = models.ForeignKey(User)
     category = models.ForeignKey(Category)
-    locality = models.CharField(max_length=200)
+    #locality = models.CharField(max_length=200)
+    locality = models.ForeignKey(Location)
     address = models.CharField(max_length=2000)
     date_entered = models.DateTimeField(auto_now_add=True)
     date_resolved = models.DateTimeField(null=True)

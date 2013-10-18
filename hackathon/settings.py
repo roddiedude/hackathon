@@ -130,6 +130,7 @@ INSTALLED_APPS = (
     'ward',
     'complaint',
     'department',
+    'location',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

@@ -5,7 +5,6 @@ from category.models import Category
 from ward.models import Ward
 from complaint.models import Complaint
 from department.models import Department
-<<<<<<< HEAD
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from tastypie.authorization import Authorization
 

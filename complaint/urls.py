@@ -7,6 +7,7 @@ urlpatterns = patterns('',
      url(r'^addcomplaint/$', views.addcomplaint, name='addcomplaint'),
      url(r'^$', views.mycomplaints, name='mycomplaints'),
      url(r'^complaintsassigned/$', views.complaints_in_myplate, name='complaints_in_my_plate'),
+     url(r'^localcomplaints/$', views.complaints_in_mylocality, name='complaints_in_my_locality'),
      url(r'^add-complaint$', views.partial_add_complaint, name='add-complaint'),
      url(r'^my-complaints$', views.partial_my_complaints, name='my-complaints'),
         
