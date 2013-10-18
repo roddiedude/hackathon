@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from category.models import Category
 from location.models import Location
+from django.utils import timezone
 
 # Create your models here.
 class Complaint(models.Model):
@@ -27,6 +28,7 @@ class Comments(models.Model):
     complaint = models.ForeignKey(Complaint)
     user = models.ForeignKey(User)
     comment = models.CharField(max_length=2000)
+    date_entered = models.DateTimeField(default=timezone.now())
     
     
 class Following(models.Model):

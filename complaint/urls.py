@@ -16,7 +16,9 @@ urlpatterns = patterns('',
      url(r'^add-complaint$', views.partial_add_complaint, name='add-complaint'),
      url(r'^my-complaints$', views.partial_my_complaints, name='my-complaints'),
      url(r'^detail/(?P<complaint_id>\d+)/$', views.detail, name='detail'),
-     url(r'^upvote/(?P<complaint_id>\d+)/$', views.upvote, name='upvote')
+     url(r'^upvote/(?P<complaint_id>\d+)/$', views.upvote, name='upvote'),
+     url(r'^comments/(?P<complaint_id>\d+)/$', views.comment, name='comment'),
+     
      )
         
 
