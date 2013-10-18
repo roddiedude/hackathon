@@ -13,6 +13,8 @@ class Complaint(models.Model):
     date_resolved = models.DateTimeField(null=True)
     upvotes = models.IntegerField(default=0)
     photo = models.ImageField(upload_to="complaints", null=True)
+    email = models.CharField(max_length=200)
+    phone = models.CharField(max_length=200)
     
 class Comments(models.Model):
     complaint = models.ForeignKey(Complaint)
