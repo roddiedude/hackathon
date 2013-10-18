@@ -57,6 +57,9 @@ def signup(request):
             user.first_name = userjson['firstName']
             user.save();
             
+            user = authenticate(username=userjson['userName'], password=userjson['password'])
+            auth_login(request, user)
+            
             response['message'] = 'success'
             response['redirect'] = reverse('accounts:landing')
             return HttpResponse(simplejson.dumps(response))
