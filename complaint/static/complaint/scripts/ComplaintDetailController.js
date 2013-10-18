@@ -38,6 +38,13 @@ app.controller('ControlDetailController', function($scope, $http, $modal) {
 		});
 	}
 	
+	$scope.upvote = function () {
+		$http.get('/complaint/upvote/' + complaint_id + '/').success(
+			function(data) {
+				complaint.upvotes += 1;
+				});
+	}
+	
 	$http.get('/accounts/info').success(
 		function(data){
 			$scope.current_user = {}
