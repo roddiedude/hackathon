@@ -33,9 +33,13 @@ app.controller("ComplaintController", function($scope, $http) {
 	};
 });
 
-//TODO: Change the 
 app.controller('MyComplaintsController', function($scope, $http) {
-	$http.get('/complaint/mycomplaints').success(function(data) {
-		$scope.complaints = data.objects;
+	$http.get('/complaint').success(function(data) {
+		$scope.complaints = data;
+	});
+	
+	$http.get('/complaint').success(function(data) {
+		$scope.localityComplaints = data;
 	})
 });
+
