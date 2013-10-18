@@ -50,6 +50,7 @@ class LocationResource(ModelResource):
 class ComplaintResource(ModelResource):
     user = fields.ForeignKey(UserResource, 'user')
     category = fields.ForeignKey(CategoryResource, 'category')
+    locality = fields.ForeignKey(LocationResource, 'locality')    
     filtering = {
         'user': ALL_WITH_RELATIONS,
     }
