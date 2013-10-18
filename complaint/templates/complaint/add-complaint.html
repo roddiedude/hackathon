@@ -1,42 +1,139 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Post a new complaint</title>
-    
-    {% load staticfiles %}
-    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post a new complaint</title> {% load staticfiles %}
+
+<link rel="stylesheet" type="text/css"
+	href="{% static 'css/bootstrap.css' %}" />
+<link rel="stylesheet" type="text/css"
+	href="{% static 'css/bootstrap-responsive.css' %}" />
+
+<script src="{% static 'scripts/jquery/jquery-1.10.2.js' %}"></script>
+<script src="{% static 'scripts/bootstrap/bootstrap.js' %}"></script>
+<script src="{% static 'scripts/angular/angular.js' %}"></script>
+<script
+	src="{% static 'scripts/angular/ui-bootstrap-tpls-0.6.0.js.js' %}"></script>
+
+<script src="{% static 'scripts/js/app.js' %}"></script>
+<script src="{% static 'scripts/js/directives.js' %}"></script>
+<script src="{% static 'scripts/js/services.js' %}"></script>
+<script src="{% static 'complaints/js/ComplaintsController.js' %}"></script>
+
 </head>
-<body>
-	<h1>Add new complaint here</h1>
+<body ng-app="app">
+	<div class="row-fluid" ng-controller="ComplaintController">
+		<form class="form-horizontal">
+			<fieldset>
+				<div id="legend">
+					<legend class="">Post Complaint</legend>
+				</div>
+				<!-- Name -->
+				<div class="control-group">
+					<label class="control-label" for="Title">Title</label>
+					<div class="controls">
+						<input type="text" id="username" name="username" placeholder=""
+							class="input-xlarge">
+					</div>
+				</div>
+				
+				<!-- Expiry-->
+				<div class="control-group">
+					<label class="control-label" for="category">Category</label>
+					<div class="controls">
+						<select class="span2" name="Category-list" id="category-list">
+							<option></option>
+							<option value="01">Crime and Safety</option>
+							<option value="02">Electricity and Power Supply</option>
+							<option value="03">Civil Supplies</option>
+							<option value="04">Sewage</option>
+							<option value="05">Drinking Water</option>
+							<option value="06">Traffic</option>
+							<option value="07">Sanitation</option>
+							<option value="08">Rain water Drains</option>
+						</select>
+
+					</div>
+				</div>
+				<!-- CVV -->
+				<div class="control-group">
+					<label class="control-label" for="locality">Locality</label>
+					<div class="controls">
+
+						<select class="span2" name="locality">
+							<option></option>
+							<option value="13">Adayar</option>
+							<option value="14">Guindy</option>
+							<option value="15">Besant Nagar</option>
+							<option value="16">Anna Nagar</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="Address">Address</label>
+					<div class="controls">
+						<textarea class="span4" rows="4"
+							placeholder="Enter your complete address"></textarea>
+
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="Address">Email</label>
+					<div class="controls">
+						<div class="input-prepend">
+							<span class="add-on"><i class="icon-envelope"></i></span><input
+								type="text" id="" name="">
+						</div>
+
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="Address">Phone</label>
+					<div class="controls">
+						<div class="input-prepend">
+							<span class="add-on"><i class="icon-star"></i></span><input
+								type="text" id="" name="">
+						</div>
+
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="Info">Information</label>
+					<div class="controls">
+						<textarea class="span4" rows="4"
+							placeholder="Decribe your complaint"></textarea>
+
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="Address">Image</label>
+					<div class="controls">
+
+						<div class="input-prepend input-append">
+							<span class="add-on"><i class="icon-picture"></i></span><input
+								type="text" id="" name="">
+							<button class="btn" type="button">Upload</button>
+						</div>
+
+					</div>
+				</div>
+				
+				<!-- Submit -->
+				<div class="control-group">
+					<div class="controls">
+						<button class="btn btn-success">Post Complaint</button>
+						<button class="btn btn-danger">Cancel</button>
+
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
 </body>
 </html>
-
-=======
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Post a new complaint</title>
-    
-     {% load staticfiles %}
-    
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-responsive.css' %}" />
-    
-    <script src="{% static 'scripts/jquery/jquery-1.10.2.js' %}"></script>
-    <script src="{% static 'scripts/bootstrap/bootstrap.js' %}"></script>
-    <script src="{% static 'scripts/angular/angular.js' %}"></script>
-    <script src="{% static 'scripts/angular/ui-bootstrap-tpls-0.6.0.js.js' %}"></script>
-    
-    <script src="{% static 'scripts/js/app.js' %}"></script>
-    <script src="{% static 'scripts/js/directives.js' %}"></script>
-    <script src="{% static 'scripts/js/services.js' %}"></script>
-    <script src="{% static 'complaints/js/ComplaintsController.js' %}"></script>
-    
-</head>
-<body>
-	<h1>Add new complaint here</h1>
-</body>
-</html>
-
->>>>>>> 54a5a0a85d31f5296ff8d1402185d7e43c1b8fbc
