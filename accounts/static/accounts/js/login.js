@@ -113,6 +113,14 @@ app.controller('EditAccountController', function($scope, $http) {
 		$scope.user = data[0];
 		$scope.user.password = "";
 	});
+	
+	$http.get('/accounts/userInfo').success(function(data) {
+		$scope.userInfo = data[0];
+	});
+	
+	$http.get('/api/v1/location/?format=json').success(function(data) {
+		$scope.locations = data.objects;
+	});
 
 	$scope.updateUser = function() {
 		delete $scope.user.confirmPassword;
@@ -128,6 +136,44 @@ app.controller('EditAccountController', function($scope, $http) {
 			document.location.href = '/landing';
 		}).error(function(data) {
 			console.log('error.');
-		});
+		});		
+		
+	};
+	
+	$scope.updateUser = function() {
+		$scope.userInfo.user = $scope.user.resource_uri;
+		
+		$scope.userInfo.location_id = $scope.userInfo.location
+		
+		if ($scope.userInfo.id) {
+			
+			$http({
+				url : $scope.userInfo.resource_uri,
+				method : 'PUT',
+				data : $scope.userInfo,
+				headers : {
+					'content-type' : 'application/json'
+				}
+			}).success(function(data) {
+				document.location.href = '/landing';
+			}).error(function(data) {
+				console.log('error.');
+			});
+		} else {
+			$http({
+				url : "/api/v1/userinfo/",
+				method : 'POST',
+				data : $scope.userInfo,
+				headers : {
+					'content-type' : 'application/json'
+				}
+			}).success(function(data) {
+				document.location.href = '/landing';
+			}).error(function(data) {
+				console.log('error.');
+			});
+		}
+		
 	};
 });
+

@@ -11,8 +11,8 @@ function initialize() {
   });
 
   var defaultBounds = new google.maps.LatLngBounds(
-      new google.maps.LatLng(13.03767, 80.26028),
-      new google.maps.LatLng(13.23767, 80.46028));
+      new google.maps.LatLng(12.98566, 80.27040),
+      new google.maps.LatLng(13.18566, 80.27040));
   map.fitBounds(defaultBounds);
 
   $("select#target").change(function(){ 
@@ -20,8 +20,10 @@ function initialize() {
 	    var latLngString = $(this).val();
 	    var latLngArray = latLngString.split(",");
 	    var latLng = new google.maps.LatLng(latLngArray[0], latLngArray[1]);
-	    map.panTo(latLng);    
-	});
+	    map.panTo(latLng);
+	    zoomTo();                   //recursive call
+  });
+
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);

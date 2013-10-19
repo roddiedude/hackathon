@@ -12,15 +12,26 @@
                Email Address
                    <input type="email" name="email" class="span3" placeholder="someone@example.com" required="required" data-ng-model="user.email" /></label>
            	<label>
-               User Name
-                   <input type="text" name="username" class="span3" autocomplete="off" placeholder="User Name" required="required" data-ng-model="user.username" /></label>
-           	<label>
-               Password
-                   <input type="password" name="password" class="span3" autocomplete="off" required="required" data-ng-model="user.password" /></label>
+               Location                  
+				<div class="controls">
+	
+					<select class="" name="locality" ng-model="userInfo.location"
+						value="userInfo.location">
+						<option ng-repeat="locality in locations" id="{[{locality.id}]}"
+							value="{[{ locality.resource_uri}]}">{[{locality.name}]}</option>
+					</select>
+				</div>
+			</label>
+			<label>
+               Address
+                   <input type="text" name="address" class="span3" placeholder="Type your address" required="required" data-ng-model="userInfo.address" />
+            </label>
             <label>
-               Confirm Password
-                   <input type="password" name="confirmPassword" class="span3" autocomplete="off" required="required" data-ng-model="user.confirmPassword" /></label>
-          	<button type="submit" class="btn btn-primary pull-right" data-ng-click="updateUser()" data-ng-disabled="isSaveDisabled()">
+               City
+                   <input type="text" name="city" class="span3" placeholder="City" required="required" data-ng-model="userInfo.city" />
+             </label>
+           	
+          	<button type="submit" class="btn btn-primary pull-right" data-ng-click="updateUser()">
               Update account info</button>
           <div class="clearfix"></div>
       </form>

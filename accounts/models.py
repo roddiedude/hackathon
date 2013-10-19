@@ -6,6 +6,6 @@ from location.models import Location
 class UserInfo(models.Model):
     user = models.ForeignKey(User,related_name='user-userinfo')
     location = models.ForeignKey(Location,related_name='userinfo-location')
-    adress = models.CharField(max_length=200)
+    address = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
     

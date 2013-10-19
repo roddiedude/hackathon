@@ -28,8 +28,14 @@ a.icon {
 </style>
 
  <style>
-      html, body, #map-canvas {
+      html, body {
         height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+      #map-canvas {
+      	width: 400px;
+        height: 400px;
         margin: 0px;
         padding: 0px
       }
@@ -60,7 +66,7 @@ a.icon {
 <script src="{% static 'accounts/js/locality.js' %}"></script>
 </head>
 
-<body ng-controller="HomeController">
+<body>
 	<div class="head">
 		<div class="row-fluid">
 			<div class="span12">
@@ -97,7 +103,7 @@ a.icon {
 				<div class="nav-collapse collapse">
 					<ul class="nav">
 						<li class="divider-vertical"></li>
-						<li class="active"><a href="#"><i
+						<li class="active"><a href="/landing"><i
 								class="icon-home icon-white"></i> Home</a></li>
 						<li><a href="#"><i class="icon-home icon-white"></i>
 								Complaints</a></li>
@@ -120,10 +126,10 @@ a.icon {
       <select id="target" class="span6"
 						name="locality">
 						<option></option>
-						<option value="13">Adyar</option>
-						<option value="14">Guindy</option>
-						<option value="15">Besant Nagar</option>
-						<option value="16">Anna Nagar</option>
+						<option value="13.00118,80.25650">Adyar</option>
+						<option value="13.03364,80.25052">Alwarpet</option>
+						<option value="13.00807,80.21625">Guindy</option>
+						<option value="13.01995,80.21814">Saidapet</option>					
 					</select>
     </div>
     <div id="map-canvas"></div>

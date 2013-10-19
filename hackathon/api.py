@@ -18,8 +18,17 @@ class UserResource(ModelResource):
         queryset = User.objects.all()
         resource_name = 'user'
         authorization = Authorization()
+        
+class LocationResource(ModelResource):    
+    class Meta:
+        queryset = Location.objects.all()
+        resource_name = 'location'
+        authorization = Authorization()      
  
 class UserInfoResource(ModelResource):    
+    user = fields.ForeignKey(UserResource, 'user')
+    location = fields.ForeignKey(LocationResource, 'location')    
+    
     class Meta:
         queryset = UserInfo.objects.all()
         resource_name = 'userinfo'
@@ -37,11 +46,7 @@ class WardResource(ModelResource):
         resource_name = 'ward'
         authorization = Authorization() 
         
-class LocationResource(ModelResource):    
-    class Meta:
-        queryset = Location.objects.all()
-        resource_name = 'location'
-        authorization = Authorization()                   
+             
 
 class ComplaintResource(ModelResource):
     user = fields.ForeignKey(UserResource, 'user')

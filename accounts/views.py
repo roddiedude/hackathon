@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, Http404, HttpResponseRedirect
@@ -15,7 +15,13 @@ def home(request):
 
 @login_required
 def landing(request):
-    return render(request, 'accounts/landing.html')
+    usr = request.user
+    try:
+        department = Department.objects.get(user = usr)
+    except Department.DoesNotExist:        
+        return render(request, 'accounts/landing.html')                    
+    else:
+        return render(request, 'accounts/admin-landing.html')
 
 @login_required
 def admin_landing(request):
@@ -108,6 +114,21 @@ def info(request):
     bundles.append(userResource.full_dehydrate(bundle))
     json = userResource.serialize(None, bundles, "application/json")
     return HttpResponse(json, content_type='json')
+
+@login_required      
+def userInfo(request):
+    userResource = UserInfoResource()
+    usr = request.user
+    
+    userInfo = get_object_or_404(UserInfo, user=usr);
+
+    bundles = []    
+    bundle = userResource.build_bundle(obj=userInfo, request=request)
+    
+    bundles.append(userResource.full_dehydrate(bundle))
+    json = userResource.serialize(None, bundles, "application/json")
+    return HttpResponse(json, content_type='json')
+
 
 def locality(request):
     return render(request, 'accounts/locality.html')
