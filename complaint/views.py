@@ -139,8 +139,19 @@ def upvote(request, complaint_id):
     complaint.save()
     return HttpResponse("")
 
+#def detail(request, complaint_id):
+    #return render(request, 'complaint/detail.html',  {'complaint_id':complaint_id})
 def detail(request, complaint_id):
-    return render(request, 'complaint/detail.html',  {'complaint_id':complaint_id})
+    #return render(request, 'complaint/detail.html',  {'complaint_id':complaint_id})
+    usr = request.user
+    try:
+        Department.objects.get(user=usr);
+    except Department.DoesNotExist:
+        return render(request, 'complaint/detail.html',  {'complaint_id':complaint_id})
+    return render(request, 'complaint/admindetail.html',  {'complaint_id':complaint_id})
+        
+    
+    
 
 def comment(request, complaint_id):
     commentResource = CommentResource()

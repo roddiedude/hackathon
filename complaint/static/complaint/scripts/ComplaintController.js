@@ -27,8 +27,10 @@ app.controller("ComplaintController", function($scope, $http) {
 			}
 		}).success(function(data) {
 			$scope.cancel();
+			window.refresh();
+			document.location.reload(true);
 		}).error(function(data) {
-
+			
 		});
 	};
 });

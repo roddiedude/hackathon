@@ -35,6 +35,7 @@ app.controller('ControlDetailController', function($scope, $http, $modal) {
 		.success(function(data) {
 			$scope.complaint.new_comment = '';
 			$scope.complaint.comments.push(new_comment);
+			window.refresh();			
 		})
 		.error(function(data) {
 			
@@ -66,6 +67,23 @@ app.controller('ControlDetailController', function($scope, $http, $modal) {
 		})
 	}
 	
+	$scope.update_complaint_status = function () {
+		$http({
+			url : "/api/v1/complaint/" + $scope.complaint.id,
+			method : 'put',
+			data : $scope.complaint,
+			headers : {
+				'content-type' : 'application/json'
+			}
+		})
+		.success(function(data) {
+			console.log(data);
+		})
+		.error(function(err){
+			console.log(err);
+		});
+	}
+	
 	$scope.back = function() {
 		document.location.href = document.referrer;
 	}
@@ -83,9 +101,9 @@ app.controller('ControlDetailController', function($scope, $http, $modal) {
 
 				$http.get($scope.complaint.user).success(function(data) {
 					$scope.complaint.user_object = data;
-					
 					$scope.is_complained_me = $scope.current_user.resource_uri == $scope.complaint.user;
 					$scope.can_followed = $scope.can_upvote = $scope.can_followed && !$scope.is_complained_me;
+					 
 				})
 				
 				$http.get($scope.complaint.category).success(function(data) {
@@ -113,6 +131,7 @@ app.controller("ComplaintController", function($scope, $http) {
 	$http.get('/api/v1/location/?format=json')
 	.success(function(data) {
 		$scope.locations = data.objects;
+		
 	});
 
 	$http.get('/api/v1/category/?format=json')
