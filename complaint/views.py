@@ -16,6 +16,7 @@ from category.models import Category
 from department.models import Department
 from django.core import serializers
 from hackathon.api import *
+from operator import itemgetter
 
 
 def index(request):
@@ -43,12 +44,13 @@ def complaints_in_myplate(request):
     usr = request.user
     dpt = get_object_or_404(Department,user=usr)
     #categories = get_list_or_404(Category,department=dpt)
-    categories = Department.objects.all().filter(pk = dpt.id)
+    categories = dpt.categories.all()
     complaints = []    
     for cat in categories:
         comps =get_list_or_404(Complaint,category=cat)
         for comp in comps:
             complaints.append(comp)
+    #complaints.sort('date_entered')[:5]       
     bundles = []
     for obj in complaints:
         bundle = complaint.build_bundle(obj=obj, request=request)
@@ -63,13 +65,14 @@ def recent_complaints(request):
     usr = request.user
     dpt = get_object_or_404(Department,user=usr)
     #categories = get_list_or_404(Category,department=dpt)
-    categories = Department.objects.all().filter(pk = dpt.id)
+    categories = dpt.categories.all()
     complaints = []    
     for cat in categories:
         comps =get_list_or_404(Complaint,category=cat)
         for comp in comps:
             complaints.append(comp)
-    complaints.sort(key=Complaint.date_entered, reverse=True)[:5]       
+    complaints.sort(key=lambda x:x.date_entered,reverse=True)
+    #ut.sort(key=lambda x: x.count, reverse=True)       
     bundles = []
     for obj in complaints:
         bundle = complaint.build_bundle(obj=obj, request=request)
@@ -83,13 +86,13 @@ def top_complaints(request):
     usr = request.user
     dpt = get_object_or_404(Department,user=usr)
     #categories = get_list_or_404(Category,department=dpt)
-    categories = Department.objects.all().filter(pk = dpt.id)
+    categories = dpt.categories.all()
     complaints = []    
     for cat in categories:
         comps =get_list_or_404(Complaint,category=cat)
         for comp in comps:
             complaints.append(comp)
-    complaints.sort(key=Complaint.upvotes, reverse=True)       
+    #complaints.sort('date_entered')[:5]       
     bundles = []
     for obj in complaints:
         bundle = complaint.build_bundle(obj=obj, request=request)
