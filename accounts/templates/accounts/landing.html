@@ -26,6 +26,49 @@ a.icon {
 	height: 100%;
 	min-height: 100%
 }
+
+.container-fluid
+{
+	padding: 0;
+}
+
+.nav-tabs
+{
+	margin: 0
+}
+
+.thumbs-up-icon
+{
+	margin-top: -37px;
+	margin-left: 13px;
+	height: 50px;
+	width: 50px;
+	background-position: 0,0;
+	background-repeat: no-repeat;
+	background-image: url("/static/img/thumbs-up-icon.png");
+	display: block;
+}
+
+.f18
+{
+	font-size: 18pt;
+}
+
+.modal.fade.in 
+{
+  top: 10%;
+  width: 600px;
+}
+
+
+.modal-body
+{
+	position: relative;
+	max-height: 600px;
+	padding: 15px;
+	overflow-y: auto;
+}
+
 </style>
 
 <script src="{% static 'scripts/jquery/jquery-1.10.2.js' %}"></script>
@@ -70,12 +113,10 @@ a.icon {
                 <!--a class="brand" href="/">My City</a-->
 				<div class="nav-collapse collapse">
 					<ul class="nav">
-						<li class="divider-vertical"></li>
-						<li class="active"><a href="#"><i
-								class="icon-home icon-white"></i> Home</a></li>
-						<li><a href="#"><i class="icon-home icon-white"></i>
+						<li><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
+						<li class="active"><a href="#"><i class="icon-home icon-white"></i>
 								Complaints</a></li>
-						<li><a href="/accounts/locality"><i class="icon-home icon-white"></i> My
+						<li><a href="/accounts/locality"><img src="/static/img/Skyscrapers-icon-small.png" alt="" /> My
 								City</a></li>
 					</ul>
 				</div>
@@ -87,10 +128,10 @@ a.icon {
 	<div class="container-fluid">
 		<div class="row-fluid">
 
-			<div class="span10 offset1">
+			<div class="span12">
 				<div class="" id="loginModal">
-					<div class="modal-header">
-						<button class="btn pull-right btn-danger" type="button"
+					<div class="modal-header" style="display: block; overflow: hidden;">
+						<button class="btn pull-right btn-success btn-large" type="button"
 							ng-click="postComplaint()">Post a Complaint</button>
 						<h3>Complaints</h3>
 					</div>
@@ -100,7 +141,7 @@ a.icon {
 								<li class="active"><a href="#login" data-toggle="tab"><h4>MyComplaints</h4></a></li>
 								<li><a href="#create" data-toggle="tab"><h4>Complaints in my locality</h4></a></li>
 							</ul>
-							<div id="myTabContent" class="tab-content">
+							<div id="myTabContent" class="tab-content" style="background-color: white; padding: 10px">
 								<div class="tab-pane active in" id="login">
 									<form class="form-horizontal">
 										<div class="container-fluid">
@@ -112,22 +153,24 @@ a.icon {
 											<div class="row-fluid" ng-repeat="complaint in complaints">
 												<div class="span12 well">
 													<div class="row-fluid">
-														<div class="span6">
+														<div class="span2">
+															<img src="static/img/no-photo.jpg" style="width: 140px;" ng-src="{[{complaint.photo}]}" style="margin:auto;width:140px;" />
+														</div>
+														<div class="span4">
 															<div class="caption">
-												              <h4><a ng-href="complaint/detail/{[{ complaint.id }]}">{[{ complaint.title }]}</a></h4>
+												              <h4 style="margin: 0"><a ng-href="complaint/detail/{[{ complaint.id }]}">{[{ complaint.title }]}</a></h4>
 												              	<p>{[{ complaint.information }]}</p>
 												              	<p><i class="icon icon-map-marker"></i> {[{ complaint.location }]}</p>
 												            </div>
 														</div>
-														<div class="span2">
-															<img ng-src="{[{complaint.photo}]}" style="margin: auto;" />
-														</div>
-														<div class="span2">
+														<div class="span3">
 															<a href="#" class="btn btn-large btn-link" type="button"> {[{complaint.followers.length}]} Followers</a>
 														</div>
-														<div class="input-group input-group-lg span2">
-												        	<span class="input-group-addon">{[{ complaint.upvotes }]}</span>
-												        	<i class="icon-black icon-thumbs-up"></i>
+														<div class="input-group input-group-lg span3">
+															<div class="pull-right"> 
+													        	<span class="input-group-addon f18">{[{ complaint.upvotes }]}</span>
+													        	<i class="thumbs-up-icon"></i>
+													      	</div>
 												      	</div>
 													</div>
 												</div>
@@ -146,19 +189,22 @@ a.icon {
 											<div class="row-fluid" ng-repeat="complaint in localityComplaints">
 												<div class="span12 well">
 													<div class="row-fluid">
-														<div class="span6">
+														<div class="span2">
+															<img src="static/img/no-photo.jpg"  ng-src="{[{complaint.photo}]}" style="margin:auto; width:140px;" />
+														</div>
+														<div class="span4">
 															<div class="caption">
-												              <h4><a ng-href="complaint/detail/{[{ complaint.id }]}">{[{ complaint.title }]}</a></h4>
+												              <h4 style="margin: 0"><a ng-href="complaint/detail/{[{ complaint.id }]}">{[{ complaint.title }]}</a></h4>
 												              	<p>{[{ complaint.information }]}</p>
 												              	<p><i class="icon icon-map-marker"></i> {[{ complaint.location }]}</p>
 												            </div>
 														</div>
-														<div class="span4">
+														<div class="span3">
 															<a href="#" class="btn btn-large btn-link" type="button">{[{complaint.followers.length}]} Followers</a>
 														</div>
-														<div class="span2">
-															<div>
-																<span class="label" style="cursor: auto">{[{ complaint.upvotes }]}</span>
+														<div class="span3">
+															<div class="pull-right">
+																<span class="input-group-addon f18" style="cursor: auto">{[{ complaint.upvotes }]}</span>
 																<a class="icon btn btn-success btn-large" ng-click="upvote(complaint)"><i class="icon-white icon-chevron-up"></i> Upvote</a>
 															</div>
 														</div>
@@ -178,7 +224,7 @@ a.icon {
 
 	<script type="text/ng-template" id="addComplaint.html">
 	<div ng-controller="ComplaintController">
-        <div class="modal-header">
+        <div class="modal-header wide-modal">
             <h4>Post a Complaint</h4>
         </div>
         <div class="modal-body">

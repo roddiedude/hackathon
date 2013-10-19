@@ -15,6 +15,13 @@
         {
             cursor: pointer;
         }
+        
+        .mm-banner 
+        {
+        	height: 56px;
+			float: left;
+			display: block;
+        }
     </style>
     
     <script src="{% static 'scripts/jquery/jquery-1.10.2.js' %}"></script>
@@ -40,7 +47,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
-                <a class="brand" href="/" name="top">My City</a>
+                <img src="/static/img/metamorphosisLogo.jpg" alt="" class="mm-banner" />
+<!--                 <a class="brand" href="/" name="top">My City</a> -->
                 <div class="nav-collapse collapse" ng-init="incorrectCredentials = false">
                     <ul class="nav">
                     </ul>

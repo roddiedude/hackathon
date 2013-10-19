@@ -2,6 +2,7 @@
 <html ng-app="app">
 <head>
 <title>Department Home page</title>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 {% load staticfiles %}
@@ -25,6 +26,34 @@ a.icon {
 	height: 100%;
 	min-height: 100%
 }
+
+.container-fluid
+{
+	padding: 0;
+}
+
+.nav-tabs
+{
+	margin: 0
+}
+
+.thumbs-up-icon
+{
+	margin-top: -37px;
+	margin-left: 13px;
+	height: 50px;
+	width: 50px;
+	background-position: 0,0;
+	background-repeat: no-repeat;
+	background-image: url("/static/img/thumbs-up-icon.png");
+	display: block;
+}
+
+.f18
+{
+	font-size: 18pt;
+}
+
 </style>
 
 <script src="{% static 'scripts/jquery/jquery-1.10.2.js' %}"></script>
@@ -60,20 +89,13 @@ a.icon {
 	<div class="navbar navbar-inverse nav">
 		<div class="navbar-inner">
 			<div class="container">
-				<!--a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <!--a class="brand" href="/">My City</a-->
 				<div class="nav-collapse collapse">
 					<ul class="nav">
-						<li class="divider-vertical"></li>
-						<li class="active"><a href="#"><i
+						<li><a href="#"><i
 								class="icon-home icon-white"></i> Home</a></li>
-						<li><a href="#"><i class="icon-home icon-white"></i>
+						<li class="active"><a href="#"><i class="icon-home icon-white"></i>
 								Complaints</a></li>
-						<li><a href="/accounts/locality"><i class="icon-home icon-white"></i> My
+						<li><a href="/accounts/locality"><img src="static/img/Skyscrapers-icon-small.png" alt=""> My
 								City</a></li>
 					</ul>
 				</div>
@@ -85,8 +107,13 @@ a.icon {
 	<div class="container-fluid">
 		<div class="row-fluid">
 
-			<div class="span10 offset1">
+			<div class="span12">
 				<div class="" id="loginModal">
+					<div class="modal-header" style="display: block; overflow: hidden;">
+						<button class="btn pull-right btn-success btn-large" type="button"
+							ng-click="postComplaint()">Post a Complaint</button>
+						<h3>Complaints</h3>
+					</div>
 					<div ng-controller="AdminComplaintsController" ng-init="topComplaints = []; recentComplaints = []; allComplaints = []">
 						<div class="well">
 							<ul class="nav nav-tabs">
@@ -106,7 +133,7 @@ a.icon {
 									</a>
 								</li>
 							</ul>
-							<div id="myTabContent" class="tab-content">
+							<div id="myTabContent" class="tab-content" style="background-color: white; padding: 10px">
 								<div class="tab-pane active in" id="topComplaints">
 									<form class="form-horizontal">
 										<div class="container-fluid">
@@ -118,19 +145,24 @@ a.icon {
 											<div class="row-fluid" ng-repeat="complaint in topComplaints">
 												<div class="span12 well">
 													<div class="row-fluid">
-														<div class="span6">
-															<div class="caption">
-												              <h4><a ng-href="complaint/detail/{[{ complaint.id }]}">{[{ complaint.title }]}</a></h4>
-												              	<p>{[{ complaint.information }]}</p>
-												              	<p><i class="icon icon-map-marker"></i> {[{ complaint.location }]}</p>
-												            </div>
+														<div class="span2">
+															<img src="static/img/no-photo.jpg" ng-src="{[{complaint.photo}]}" style="margin: auto; width:140px;"/>
 														</div>
 														<div class="span4">
-															<a href="#" class="btn btn-large btn-link" type="button"> {[{complaint.followers.length}]} Followers</a>
+															<div class="caption">
+											              		<h4 style="margin: 0"><a ng-href="complaint/detail/{[{ complaint.id }]}">{[{ complaint.title }]}</a></h4>
+												              		<p>{[{ complaint.information }]}</p>
+												              		<p><i class="icon icon-map-marker"></i> {[{ getLocation(complaint.id) }]}</p>
+											            	</div>
 														</div>
-														<div class="input-group input-group-lg span2">
-												        	<span class="input-group-addon">{[{ complaint.upvotes }]}</span>
-												        	<i class="icon-black icon-thumbs-up"></i>
+														<div class="span3">
+															<a href="#" class="btn btn-large btn-link" type="button"> {[{ getFollowersCount(complaint.locality) }]} Followers</a>
+														</div>
+														<div class="input-group input-group-lg span3">
+															<div class="pull-right">
+													        	<span class="f18">{[{ complaint.upvotes }]}</span>
+													        	<i class="thumbs-up-icon"></i>
+													      	</div>
 												      	</div>
 													</div>
 												</div>
@@ -149,20 +181,23 @@ a.icon {
 											<div class="row-fluid" ng-repeat="complaint in recentComplaints">
 												<div class="span12 well">
 													<div class="row-fluid">
-														<div class="span6">
-															<div class="caption">
-												              <h4><a ng-href="complaint/detail/{[{ complaint.id }]}">{[{ complaint.title }]}</a></h4>
-												              	<p>{[{ complaint.information }]}</p>
-												              	<p><i class="icon icon-map-marker"></i> {[{ complaint.location }]}</p>
-												            </div>
+														<div class="span2">
+															<img src="static/img/no-photo.jpg" ng-src="{[{complaint.photo}]}" style="margin: auto; width:140px;" />
 														</div>
 														<div class="span4">
-															<a href="#" class="btn btn-large btn-link" type="button">{[{complaint.followers.length}]} Followers</a>
+															<div class="caption">
+												              <h4 style="margin: 0"><a ng-href="complaint/detail/{[{ complaint.id }]}">{[{ complaint.title }]}</a></h4>
+												              	<p>{[{ complaint.information }]}</p>
+												              	<p><i class="icon icon-map-marker"></i> {[{ getLocation(complaint.id) }]}</p>
+												            </div>
 														</div>
-														<div class="span2">
-															<div>
-																<span class="label" style="cursor: auto">{[{ complaint.upvotes }]}</span>
-																	<i class="icon-black icon-thumbs-up"></i>
+														<div class="span3">
+															<a href="#" class="btn btn-large btn-link" type="button">{[{ getFollowersCount(complaint.locality) }]} Followers</a>
+														</div>
+														<div class="span3">
+															<div class="pull-right">
+																<span class="f18" style="cursor: auto">{[{ complaint.upvotes }]}</span>
+																	<i class="thumbs-up-icon"></i>
 <!-- 																<a class="icon btn btn-success btn-large" ng-click="upvote(complaint)"><i class="icon-white icon-chevron-up"></i> Upvote</a> -->
 															</div>
 														</div>
@@ -183,21 +218,23 @@ a.icon {
 											<div class="row-fluid" ng-repeat="complaint in allComplaints">
 												<div class="span12 well">
 													<div class="row-fluid">
-														<div class="span6">
-															<div class="caption">
-												              <h4><a ng-href="complaint/detail/{[{ complaint.id }]}">{[{ complaint.title }]}</a></h4>
-												              	<p>{[{ complaint.information }]}</p>
-												              	<p><i class="icon icon-map-marker"></i> {[{ complaint.location }]}</p>
-												            </div>
+														<div class="span2">
+															<img src="static/img/no-photo.jpg" ng-src="{[{complaint.photo}]}" style="margin: auto; width:140px;" />
 														</div>
 														<div class="span4">
-															<a href="#" class="btn btn-large btn-link" type="button">{[{complaint.followers.length}]} Followers</a>
+															<div class="caption">
+												              <h4 style="margin: 0"><a ng-href="complaint/detail/{[{ complaint.id }]}">{[{ complaint.title }]}</a></h4>
+												              	<p>{[{ complaint.information }]}</p>
+												              	<p><i class="icon icon-map-marker"></i> {[{ getLocation(complaint.id) }]}</p>
+												            </div>
 														</div>
-														<div class="span2">
-															<div>
-																<span class="label" style="cursor: auto">{[{ complaint.upvotes }]}</span>
-																	<i class="icon-black icon-thumbs-up"></i>
-<!-- 																<a class="icon btn btn-success btn-large" ng-click="upvote(complaint)"><i class="icon-white icon-chevron-up"></i> Upvote</a> -->
+														<div class="span3">
+															<a href="#" class="btn btn-large btn-link" type="button">{[{ getFollowersCount(complaint.locality) }]} Followers</a>
+														</div>
+														<div class="span3">
+															<div class="pull-right">
+																<span class="f18" style="cursor: auto">{[{ complaint.upvotes }]}</span>
+																	<i class="thumbs-up-icon"></i>
 															</div>
 														</div>
 													</div>

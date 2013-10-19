@@ -102,7 +102,8 @@ app.controller('MyComplaintsController', function($scope, $http) {
 							}(complaint));
 				};
 			}
-	}).error(function(data) {
+	})
+	.error(function(data) {
 		$scope.localityComplaints = [];
 	});	
 
@@ -119,30 +120,31 @@ app.controller('AdminComplaintsController', function($scope, $http) {
 	.success(function(data) {
 		
 		$scope.topComplaints = data;
-		if ($scope.topComplaints && $scope.topComplaints.length > 0) {
-			for ( var i = 0; i < $scope.topComplaints.length; i++) {
-									
-				var complaint = $scope.topComplaints[i];
-
-				$http.get(complaint.locality).success(
-						function(locality) {
-							complaint.location = locality.name;
-						});
-			}
-			
-			for ( var i = 0; i < $scope.topComplaints.length; i++) {
-
-				var complaint = $scope.topComplaints[i];
-				
-				$http.get('/complaint/' + complaint.id + '/followers')
-						.success(function(followers) {
-							complaint.followers = followers;
-						})
-						.error(function(followers) {
-							complaint.followers = [];
-						});
-			}
-		}
+		
+//		if ($scope.topComplaints && $scope.topComplaints.length > 0) {
+//			for ( var i = 0; i < $scope.topComplaints.length; i++) {
+//									
+//				var complaint = $scope.topComplaints[i];
+//
+//				$http.get(complaint.locality).success(
+//						function(locality) {
+//							complaint.location = locality.name;
+//						});
+//			}
+//			
+//			for ( var i = 0; i < $scope.topComplaints.length; i++) {
+//
+//				var complaint = $scope.topComplaints[i];
+//				
+//				$http.get('/complaint/' + complaint.id + '/followers')
+//						.success(function(followers) {
+//							complaint.followers = followers;
+//						})
+//						.error(function(followers) {
+//							complaint.followers = [];
+//						});
+//			}
+//		}
 	})
 	.error(function(data) {
 		$scope.topComplaints = [];
@@ -164,4 +166,41 @@ app.controller('AdminComplaintsController', function($scope, $http) {
 	.error(function(data) {
 		$scope.allComplaints = [];
 	});
+	
+	$scope.getFollowersCount = function (complaint) {
+		
+		var count = 0;
+		
+//		$http.get('/complaint/' + complaint.id + '/followers')
+//			.success(function(followers) {
+//				count = followers.count;
+//			})
+//			.error(function(followers) {
+//				
+//			});
+//		
+//		return $scope.$apply(count);
+		
+		return count;
+	};
+	
+	$scope.getLocation = function(locality) {
+		
+		
+		var loc = 'unknown';
+//		
+//		$http.get(locality)
+//		.success(
+//			function(result) {
+//				complaint.location = result.name;
+//			})
+//		.error(function(result) {
+//				complaint.location = 'Unknown';
+//			});
+//		
+//		return $scope.$apply(loc);
+		
+		return loc;
+	};
 });
+
