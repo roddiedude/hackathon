@@ -33,7 +33,6 @@
 
     <div class="navbar navbar-inverse nav">
 
-		{% if request.user.is_authenticated %}
         <div class="navbar-inner">
             <div class="container-fluid">
                 <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -45,6 +44,10 @@
                 <div class="nav-collapse collapse" ng-init="incorrectCredentials = false">
                     <ul class="nav">
                     </ul>
+                  		{% if request.user.is_authenticated %}
+                  		<div></div>
+                  		{% else %}
+                    
                     <ul class="nav pull-right">
                         <li><a href="#/signup">Sign Up</a></li>
                         <li class="divider-vertical"></li>
@@ -62,13 +65,14 @@
                             </div>
                         </li>
                     </ul>
+                    
+                            {% endif %}
                 </div>
                 <!--/.nav-collapse -->
             </div>
             <!--/.container-fluid -->
         </div>
         <!--/.navbar-inner -->
-        {% endif %}
     </div>
     <!--/.navbar -->
     

@@ -34,27 +34,72 @@ app.controller("ComplaintController", function($scope, $http) {
 });
 
 app.controller('MyComplaintsController', function($scope, $http) {
+	
 	$http.get('/complaint/').success(
 			function(data) {
+				
 				$scope.complaints = data;
 
-				if ($scope.complaints && $scope.complaints.length > 0)
+				if ($scope.complaints && $scope.complaints.length > 0) {
 					for ( var i = 0; i < $scope.complaints.length; i++) {
+											
 						var complaint = $scope.complaints[i];
-						$http.get('/complaint/' + complaint.id + '/followers')
-								.success(function(followers) {
-									complaint.followers = followers;
-								});
+
 						$http.get(complaint.locality).success(
 								function(locality) {
 									complaint.location = locality.name;
 								});
 					}
-				;
+					
+					for ( var i = 0; i < $scope.complaints.length; i++) {
+
+						var complaint = $scope.complaints[i];
+						
+						$http.get('/complaint/' + complaint.id + '/followers')
+								.success(function(followers) {
+									complaint.followers = followers;
+								})
+								.error(function(followers) {
+									complaint.followers = [];
+								});
+					}
+				}
 			});
 
-	$http.get('/complaint/localcomplaints/').success(function(data) {
-		$scope.localityComplaints = data;
+	$http.get('/complaint/localcomplaints/')
+		.success( function(data) {
+			$scope.localityComplaints = data;
+		
+			if (data && data.length > 0) {
+				
+				for ( var i = 0; i < data.length; i++) {
+					
+					var complaint = data[i];
+					
+					$http.get(complaint.locality).success(
+							function(c) {
+								var fn = function (locality) {
+									c.location = locality.name;
+								};
+								return fn;
+							}(complaint));
+				};
+				
+				for ( var i = 0; i < $scope.localityComplaints.length; i++) {
+					
+					var complaint = $scope.localityComplaints[i];
+					
+					complaint.followers = [];
+									
+					$http.get('/complaint/' + complaint.id + '/followers').success(
+							function(c) {
+								var fn = function (followers) {
+									c.followers = followers;
+								};
+								return fn;
+							}(complaint));
+				};
+			}
 	}).error(function(data) {
 		$scope.localityComplaints = [];
 	});
@@ -67,22 +112,30 @@ app.controller('MyComplaintsController', function($scope, $http) {
 	};
 });
 
-app.controller('AdminComplaintsController', function($scope) {
-	$http.get('/complaint/top-complaints/').success(function(data) {
+app.controller('AdminComplaintsController', function($scope, $http) {
+	$http.get('/complaint/top-complaints/')
+	.success(function(data) {
+		
 		$scope.topComplaints = data;
-	}).error(function(data) {
+	})
+	.error(function(data) {
 		$scope.topComplaints = [];
 	});
 
-	$http.get('/complaint/recent-complaints/').success(function(data) {
+	$http.get('/complaint/recent-complaints/')
+	.success(function(data) {
+		
 		$scope.recentComplaints = data;
-	}).error(function(data) {
+	})
+	.error(function(data) {
 		$scope.recentComplaints = [];
 	});
 
-	$http.get('/complaint/all-complaints/').success(function(data) {
+	$http.get('/complaint/all-complaints/')
+	.success(function(data) {
 		$scope.allComplaints = data;
-	}).error(function(data) {
+	})
+	.error(function(data) {
 		$scope.allComplaints = [];
 	});
 });

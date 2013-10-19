@@ -1,59 +1,26 @@
-
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span12">
-			<div class="carousel slide" id="carousel-370981">
-				<ol class="carousel-indicators">
-					<li class="active" data-slide-to="0" data-target="#carousel-370981">
-					</li>
-					<li data-slide-to="1" data-target="#carousel-370981"></li>
-					<li data-slide-to="2" data-target="#carousel-370981"></li>
-				</ol>
-				<div class="carousel-inner">
-					<div class="item active">
-						<center>
-							<img alt="" src="../imgs/img_elec.jpg" />
-						</center>
-						<div class="carousel-caption">
-							<h4>First Thumbnail label</h4>
-							<p>akshdaksjd hkdh askjdh</p>
-						</div>
-					</div>
-					<div class="item">
-						<center>
-							<img alt="" src="../imgs/img_crime.jpg" />
-						</center>
-						<div class="carousel-caption">
-							<h4>Second Thumbnail label</h4>
-							<p>aksuhd askj dhkasjd aksjd haskj sahk</p>
-						</div>
-					</div>
-					<div class="item">
-
-						<center>
-							<img alt="" src="../imgs/img_sewage.jpg" />
-						</center>
-						<div class="carousel-caption">
-							<h4>Third Thumbnail label</h4>
-							<p>askjdh askdjhas kdjashd skjadh askjdhas kj</p>
-						</div>
-					</div>
-
-					<div class="item">
-
-						<center>
-							<img alt="" src="../imgs/4.jpg" />
-						</center>
-						<div class="carousel-caption">
-							<h4>Fourth Thumbnail label</h4>
-							<p>l</p>
-						</div>
-					</div>
+			<carousel interval="myInterval">
+				<slide ng-repeat="slide in slides" active="slide.active"> 
+				<img ng-src="{[{slide.image}]}" style="margin: auto;" />
+				<div class="carousel-caption">
+					<h4>Slide {[{$index}]}</h4>
+					<p>{[{slide.text}]}</p>
 				</div>
-				<a data-slide="prev" href="#carousel-370981"
-					class="left carousel-control">&lt;</a> <a data-slide="next"
-					href="#carousel-370981" class="right carousel-control">&gt;</a>
-			</div>
+				</slide> 
+			</carousel>
 		</div>
 	</div>
+</div>
+
+<div class="hero-unit">
+	<center>
+		<p>
+		<h2>Anniyan.com</h2>
+		</p>
+		<a href="#signup/">
+		<button class="btn-success btn-large">Join Us !</button></a>
+	</center>
+
 </div>
