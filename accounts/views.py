@@ -33,25 +33,26 @@ def login(request):
     if request.method == 'POST':
         userjson = simplejson.loads(request.raw_post_data)
         
-        
-        """"TODO: check if user already exists"""
-        usr = authenticate(username=userjson['userName'], password=userjson['password'])
-        department = Department.objects.get(user = usr)
-              
-         
-        if usr is not None:
-            # the password verified for the user
-            if usr.is_active:
-                auth_login(request, usr)
-                response['message'] = 'success'
-                if department is not None:
-                    response['redirect'] = reverse('accounts:admin_landing')
-                else:
+        try:
+            """"TODO: check if user already exists"""
+            usr = authenticate(username=userjson['userName'], password=userjson['password'])
+            try:
+                department = Department.objects.get(user = usr)
+            except Department.DoesNotExist:
+                if usr.is_active:
+                    auth_login(request, usr)
+                    response['message'] = 'success'
                     response['redirect'] = reverse('accounts:landing')
-                           
-                 
+                    return HttpResponse(simplejson.dumps(response))            
+            else:
+                if usr.is_active:
+                    auth_login(request, usr)
+                    response['message'] = 'success'
+                    response['redirect'] = reverse('accounts:admin_landing')
+                    return HttpResponse(simplejson.dumps(response))
+        except User.DoesNotExist:
+            response['message'] = 'Unknown username or password'    
             return HttpResponse(simplejson.dumps(response))
-            
                 
     response['message'] = 'Unknown username or password'    
     return HttpResponse(simplejson.dumps(response))
