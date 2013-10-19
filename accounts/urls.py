@@ -16,5 +16,6 @@ urlpatterns = patterns('',
      url(r'^info$', views.info, name='info'),
      url(r'^userInfo$', views.userInfo, name='userInfo'),
      url(r'^locality$', views.locality, name='locality'),
+     url(r'^editAccount/$', views.editAccount, name='editAccount'),
      
 )

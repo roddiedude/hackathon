@@ -50,5 +50,13 @@ def my_callback(sender, **kwargs):
         user.last_name = "Pandian"
         user.first_name = "Varaguna"
         user.save();
+        
+    try:
+        u = User.objects.get(username__exact="chennaimetrowater")
+    except User.DoesNotExist:
+        user = User.objects.create_user("chennaimetrowater","chennaimetrowater@email.com", "test");
+        user.last_name = "Metro Water"
+        user.first_name = "Chennai Metro Water"
+        user.save();
     
 post_syncdb.connect(my_callback, sender= accounts.models)

@@ -135,3 +135,6 @@ def userInfo(request):
 
 def locality(request):
     return render(request, 'accounts/locality.html')
+
+def editAccount(request):
+    return render(request, 'accounts/editAccount.html')

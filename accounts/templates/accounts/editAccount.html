@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<title>Home page</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css"
+	href="{% static 'css/bootstrap.css' %}" />
+<link rel="stylesheet" type="text/css"
+	href="{% static 'css/bootstrap-responsive.css' %}" />
+
+<style type="text/css">
+.nav, .pagination, .carousel a {
+	cursor: pointer;
+}
+
+a.icon {
+	cursor: pointer;
+}
+
+#loginModal
+{
+	height: 100%;
+	min-height: 100%
+}
+</style>
+
+   <script src="{% static 'scripts/jquery/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'scripts/bootstrap/bootstrap.js' %}"></script>
+    <script src="{% static 'scripts/angular/angular.js' %}"></script>
+    <script src="{% static 'scripts/angular/ui-bootstrap-tpls-0.6.0.js' %}"></script>
+    
+    <script src="{% static 'scripts/js/app.js' %}"></script>
+    <script src="{% static 'scripts/js/directives.js' %}"></script>
+    <script src="{% static 'scripts/js/services.js' %}"></script>
+    <script src="{% static 'accounts/js/login.js' %}"></script>
+
+</head>
+
+<body ng-controller="HomeController">
+	<div class="head">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="span6">
+					<h1 class="muted">My City</h1>
+				</div>
+
+				<div class="span4 offset2" style="margin-top: 15px;">
+					<a href="/accounts/logout" class="btn btn-link pull-right">Sign Out</a>
+					<a href="/accounts/editAccount/#/edit" class="btn btn-link pull-right">My Account</a>					
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Top Nav Bar -->
+	<div class="navbar navbar-inverse nav">
+		<div class="navbar-inner">
+			<div class="container">
+				<!--a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <!--a class="brand" href="/">My City</a-->
+				<div class="nav-collapse collapse">
+					<ul class="nav">
+						<li class="divider-vertical"></li>
+						<li class="active"><a href="#"><i
+								class="icon-home icon-white"></i> Home</a></li>
+						<li><a href="#"><i class="icon-home icon-white"></i>
+								Complaints</a></li>
+						<li><a href="/accounts/locality"><i class="icon-home icon-white"></i> My
+								City</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Top NavBar-->
+
+	  <div class="container">
+    	<div ng-view>
+    	</div>
+    </div>
+    
+</body>
+</html>
