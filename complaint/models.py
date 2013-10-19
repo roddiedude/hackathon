@@ -16,7 +16,7 @@ class Complaint(models.Model):
     date_entered = models.DateTimeField(auto_now_add=True)
     date_resolved = models.DateTimeField(null=True)
     upvotes = models.IntegerField(default=0)
-    photo = models.ImageField(upload_to="complaints", null=True)
+    photo = models.CharField(max_length=2000)
     email = models.CharField(max_length=200)
     phone = models.CharField(max_length=200)
     status_choices = (

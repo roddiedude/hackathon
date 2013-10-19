@@ -11,6 +11,9 @@ from department.models import Department
 
 
 def home(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('accounts:landing'))
+    
     return render(request, 'accounts/homepage.html')
 
 @login_required
