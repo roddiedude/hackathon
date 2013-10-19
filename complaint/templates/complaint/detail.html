@@ -159,12 +159,12 @@
 							<textarea class="span12" rows="6" placeholder="" disabled="disabled">{[{ complaint.information }]}</textarea>
 						</div>
 						<div class="btn-toolbar pull-right">
-							<div class="btn-group" ng-click="upvote()" >
+							<div class="btn-group" ng-click="upvote()" ng-show="can_upvote">
 								<a href="#" class="btn btn-inverse disabled"><i
 									class="icon-white icon-thumbs-up"></i></a>
 							</div>
-							<div class="btn-group">
-								<button class="btn btn-success pull-right">Follow</button>
+							<div class="btn-group" ng-click="follow_complaint()" ng-show="can_followed">
+								<button class="btn btn-success pull-right" >Follow</button>
 							</div>
 						</div>
 					</fieldset>
