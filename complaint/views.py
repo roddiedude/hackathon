@@ -1,6 +1,6 @@
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponse
-from django.shortcuts import get_list_or_404, get_object_or_404
+from django.shortcuts import get_object_or_404
 from complaint.models import Complaint
 from complaint.models import Following
 from category.models import Category
@@ -65,7 +65,7 @@ def recent_complaints(request):
     categories = dpt.categories.all()
     complaints = []    
     for cat in categories:
-        comps =get_list_or_404(Complaint,category=cat)
+        comps = Complaint.objects.filter(category=cat)
         for comp in comps:
             complaints.append(comp)
     complaints.sort(key=lambda x:x.date_entered,reverse=True)
@@ -84,7 +84,7 @@ def top_complaints(request):
     categories = dpt.categories.all()
     complaints = []    
     for cat in categories:
-        comps =get_list_or_404(Complaint,category=cat)
+        comps =Complaint.objects.filter(category=cat)
         for comp in comps:
             complaints.append(comp)
     complaints.sort(key=lambda x:x.upvotes,reverse=True)
@@ -101,7 +101,7 @@ def complaints_in_mylocality(request):
     usr = request.user
     usrinfo = get_object_or_404(UserInfo,user=usr)
     loc = usrinfo.location
-    complaints = get_list_or_404(Complaint,locality=loc)   
+    complaints = Complaint.objects.filter(locality=loc)   
     bundles = []
     for obj in complaints:
         bundle = complaint.build_bundle(obj=obj, request=request)
