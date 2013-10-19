@@ -26,6 +26,13 @@ a.icon {
 	height: 100%;
 	min-height: 100%
 }
+
+.mm-banner 
+ {
+	height: 56px;
+	float: left;
+	display: block;
+}
 </style>
 
    <script src="{% static 'scripts/jquery/jquery-1.10.2.js' %}"></script>
@@ -43,12 +50,10 @@ a.icon {
 <body ng-controller="HomeController">
 	<div class="head">
 		<div class="row-fluid">
-			<div class="span12">
-				<div class="span6">
-					<h1 class="muted">My City</h1>
-				</div>
+			<div class="span12" style="background-color: black;">
+				<img src="/static/img/metamorphosisLogo.jpg" alt="" class="mm-banner" />
 
-				<div class="span4 offset2" style="margin-top: 15px;">
+				<div class="span4 offset2" style="margin-top: 15px; float: right;">
 					<a href="/accounts/logout" class="btn btn-link pull-right">Sign Out</a>
 					<a href="/accounts/editAccount/#/edit" class="btn btn-link pull-right">My Account</a>					
 				</div>
