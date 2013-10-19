@@ -104,7 +104,7 @@ app.controller('MyComplaintsController', function($scope, $http) {
 			}
 	}).error(function(data) {
 		$scope.localityComplaints = [];
-	});
+	});	
 
 	$scope.upvote = function(complaint) {
 		$http.get('/complaint/upvote/' + complaint.id + '/').success(
@@ -119,6 +119,30 @@ app.controller('AdminComplaintsController', function($scope, $http) {
 	.success(function(data) {
 		
 		$scope.topComplaints = data;
+		if ($scope.topComplaints && $scope.topComplaints.length > 0) {
+			for ( var i = 0; i < $scope.topComplaints.length; i++) {
+									
+				var complaint = $scope.topComplaints[i];
+
+				$http.get(complaint.locality).success(
+						function(locality) {
+							complaint.location = locality.name;
+						});
+			}
+			
+			for ( var i = 0; i < $scope.topComplaints.length; i++) {
+
+				var complaint = $scope.topComplaints[i];
+				
+				$http.get('/complaint/' + complaint.id + '/followers')
+						.success(function(followers) {
+							complaint.followers = followers;
+						})
+						.error(function(followers) {
+							complaint.followers = [];
+						});
+			}
+		}
 	})
 	.error(function(data) {
 		$scope.topComplaints = [];

@@ -67,6 +67,7 @@ app.controller('ControlDetailController', function($scope, $http, $modal) {
 		})
 	}
 	
+
 	$scope.update_complaint_status = function () {
 		$http({
 			url : "/api/v1/complaint/" + $scope.complaint.id,
@@ -83,7 +84,57 @@ app.controller('ControlDetailController', function($scope, $http, $modal) {
 			console.log(err);
 		});
 	}
+
+	window.fbAsyncInit = function () {
+		FB.init({ appId: '659521847413677', //change the appId to your appId
+		status: true, 
+		cookie: true,
+		xfbml: true,
+		oauth: true});
+	}
 	
+	$scope.postInFacebook = function () {
+		FB.login(function(response) {
+			if (response.authResponse) {
+				FB.api('/me', function(info) {
+					console.log(response);
+					console.log(info);
+					
+					showStream()
+				});	   
+			}
+		})
+		
+		function showStream(){
+			FB.api('/me', function(response) {
+				//console.log(response.id);
+				streamPublish($scope.complaint.title, $scope.complaint.information, 'hrefTitle', 'http://www.globalscholar.com/', "Post your complaints here.");
+			});
+		}
+		
+		function streamPublish(name, description, hrefTitle, hrefLink, userPrompt){
+			FB.ui(
+			{
+				method: 'stream.publish',
+				message: '',
+				attachment: {
+					name: name,
+					caption: '',
+					description: (description),
+					href: hrefLink
+				},
+				action_links: [
+					{ text: hrefTitle, href: hrefLink }
+				],
+				user_prompt_message: userPrompt
+			},
+			function(response) {
+			});
+
+		}		
+	}	
+	
+
 	$scope.back = function() {
 		document.location.href = document.referrer;
 	}

@@ -39,4 +39,6 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('accounts.urls', namespace="accounts")),
     
     (r'^api/', include(v1_api.urls)),
+    
+    url(r'^accounts/login/', 'accounts.views.home'),
 )

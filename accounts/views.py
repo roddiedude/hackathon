@@ -11,6 +11,9 @@ from department.models import Department
 
 
 def home(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('accounts:landing'))
+    
     return render(request, 'accounts/homepage.html')
 
 @login_required
@@ -132,3 +135,6 @@ def userInfo(request):
 
 def locality(request):
     return render(request, 'accounts/locality.html')
+
+def editAccount(request):
+    return render(request, 'accounts/editAccount.html')
