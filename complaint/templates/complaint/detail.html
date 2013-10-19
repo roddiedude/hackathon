@@ -99,7 +99,7 @@
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span1">
-				<a href="#" class="btn"><i class="icon-backward"></i> <strong>Back</strong></a>
+				<a href="#" class="btn" ng-click="back()"><i class="icon-backward"></i> <strong>Back</strong></a>
 			</div>
 			<div class="span8">
 				<h2 class="text-info">Complaint Details</h2>
@@ -159,12 +159,12 @@
 							<textarea class="span12" rows="6" placeholder="" disabled="disabled">{[{ complaint.information }]}</textarea>
 						</div>
 						<div class="btn-toolbar pull-right">
-							<div class="btn-group">
+							<div class="btn-group" ng-click="upvote()" ng-show="can_upvote">
 								<a href="#" class="btn btn-inverse disabled"><i
 									class="icon-white icon-thumbs-up"></i></a>
 							</div>
-							<div class="btn-group">
-								<button class="btn btn-success pull-right">Follow</button>
+							<div class="btn-group" ng-click="follow_complaint()" ng-show="can_followed">
+								<button class="btn btn-success pull-right" >Follow</button>
 							</div>
 						</div>
 					</fieldset>
@@ -176,60 +176,19 @@
 
 					<div class="controls">
 						<textarea class="span12" rows="4"
-							placeholder="Enter some comments"></textarea>
+							placeholder="Enter some comments" ng-model="complaint.new_comment"></textarea>
 						<p>
-							<button class="btn btn-success pull-right">Post Comment</button>
+							<button class="btn btn-success pull-right" ng-click="addNewComment()">Post Comment</button>
 						</p>
 					</div>
 				</div>
 				<BR /> <BR />
 
-				<div class="container-fluid well">
-					<div class="media">
-						<a class="pull-left" href="#"> <img class="media-object"
-							data-src="holder.js/140x140" alt="64x64"
-							style="width: 150px; height: 150px;"
-							src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAABxElEQVR4nO3WLXLDMBCG4dz/KAtEBAwMQjxjYmAgYmAgEqgrbNGqTeKkP3Yn2vYFH5GVHe8zWsWnUoqSn+f06hfwHgABBNB1AAQQQNcBEEAAXQdAAAF0HQABBNB1AAQQQNcBEEAAXQdAAAF0HQABBNB1AAQQQNcBEMA/CJhz1vP5rCKiIqLjOD7cG0JQEWmq/ksBL5dLfemP2WpyGIb6vJX6Lwccx1FFRIdh0FKKruuqIqJ931/ts/XvNvjb9V8O2HXdl144xqgxxrsGc84qIhpCqGt24nLOu+s3D2jN2/iEEO7Ga5omFRFNKW02aKcspVT3TtN0WP3mAbdiI2d3WIzxav+jExRC0K7rDq/fPGBKSUsp9RTYSNq/57IsTxtclqU+W9f18PrNAtq9s4X67ATd/mae57o+z/Ph9ZsFtLvJ7iw7Sbcj9VmDIQTt+76O8dH1mwV89J1mDd9mqzlDSinVEb294/bUbxqwlHL1uRFjfNjcVoP2/WYnqpT3sbW7cE99F4D/KQACCKDrAAgggK4DIIAAug6AAALoOgACCKDrAAgggK4DIIAAug6AAALoOgACCKDrAAgggK4DIIAAug6AO/MG7GgALd00A7IAAAAASUVORK5CYII=">
-						</a>
+				<div class="container-fluid well" ng-repeat="cmt in complaint.comments">
+					<div class="media">						
 						<div class="media-body">
-							<h4 class="media-heading">Media heading</h4>
-							Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-							scelerisque ante sollicitudin commodo. Cras purus odio,
-							vestibulum in vulputate at, tempus viverra turpis. Fusce
-							condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-							congue felis in faucibus.
-						</div>
-					</div>
-
-					<div class="media">
-						<a class="pull-left" href="#"> <img class="media-object"
-							data-src="holder.js/140x140" alt="64x64"
-							style="width: 150px; height: 150px;"
-							src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAABxElEQVR4nO3WLXLDMBCG4dz/KAtEBAwMQjxjYmAgYmAgEqgrbNGqTeKkP3Yn2vYFH5GVHe8zWsWnUoqSn+f06hfwHgABBNB1AAQQQNcBEEAAXQdAAAF0HQABBNB1AAQQQNcBEEAAXQdAAAF0HQABBNB1AAQQQNcBEMA/CJhz1vP5rCKiIqLjOD7cG0JQEWmq/ksBL5dLfemP2WpyGIb6vJX6Lwccx1FFRIdh0FKKruuqIqJ931/ts/XvNvjb9V8O2HXdl144xqgxxrsGc84qIhpCqGt24nLOu+s3D2jN2/iEEO7Ga5omFRFNKW02aKcspVT3TtN0WP3mAbdiI2d3WIzxav+jExRC0K7rDq/fPGBKSUsp9RTYSNq/57IsTxtclqU+W9f18PrNAtq9s4X67ATd/mae57o+z/Ph9ZsFtLvJ7iw7Sbcj9VmDIQTt+76O8dH1mwV89J1mDd9mqzlDSinVEb294/bUbxqwlHL1uRFjfNjcVoP2/WYnqpT3sbW7cE99F4D/KQACCKDrAAgggK4DIIAAug6AAALoOgACCKDrAAgggK4DIIAAug6AAALoOgACCKDrAAgggK4DIIAAug6AO/MG7GgALd00A7IAAAAASUVORK5CYII=">
-						</a>
-						<div class="media-body">
-							<h4 class="media-heading">Media heading</h4>
-							Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-							scelerisque ante sollicitudin commodo. Cras purus odio,
-							vestibulum in vulputate at, tempus viverra turpis. Fusce
-							condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-							congue felis in faucibus.
-						</div>
-					</div>
-
-					<div class="media">
-						<a class="pull-left" href="#"> <img class="media-object"
-							data-src="holder.js/140x140" alt="64x64"
-							style="width: 150px; height: 150px;"
-							src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAABxElEQVR4nO3WLXLDMBCG4dz/KAtEBAwMQjxjYmAgYmAgEqgrbNGqTeKkP3Yn2vYFH5GVHe8zWsWnUoqSn+f06hfwHgABBNB1AAQQQNcBEEAAXQdAAAF0HQABBNB1AAQQQNcBEEAAXQdAAAF0HQABBNB1AAQQQNcBEMA/CJhz1vP5rCKiIqLjOD7cG0JQEWmq/ksBL5dLfemP2WpyGIb6vJX6Lwccx1FFRIdh0FKKruuqIqJ931/ts/XvNvjb9V8O2HXdl144xqgxxrsGc84qIhpCqGt24nLOu+s3D2jN2/iEEO7Ga5omFRFNKW02aKcspVT3TtN0WP3mAbdiI2d3WIzxav+jExRC0K7rDq/fPGBKSUsp9RTYSNq/57IsTxtclqU+W9f18PrNAtq9s4X67ATd/mae57o+z/Ph9ZsFtLvJ7iw7Sbcj9VmDIQTt+76O8dH1mwV89J1mDd9mqzlDSinVEb294/bUbxqwlHL1uRFjfNjcVoP2/WYnqpT3sbW7cE99F4D/KQACCKDrAAgggK4DIIAAug6AAALoOgACCKDrAAgggK4DIIAAug6AAALoOgACCKDrAAgggK4DIIAAug6AO/MG7GgALd00A7IAAAAASUVORK5CYII=">
-						</a>
-						<div class="media-body">
-							<h4 class="media-heading">Media heading</h4>
-							Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-							scelerisque ante sollicitudin commodo. Cras purus odio,
-							vestibulum in vulputate at, tempus viverra turpis. Fusce
-							condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-							congue felis in faucibus.
+							<h4 class="media-heading">{[{cmt.user_object.first_name}]} </h4>
+							{[{cmt.comment}]}
 						</div>
 					</div>
 				</div>

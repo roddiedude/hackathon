@@ -30,12 +30,6 @@ class CategoryResource(ModelResource):
         queryset = Category.objects.all()
         resource_name = 'category'
         authorization = Authorization()
-
-class FollowingResource(ModelResource):
-    class Meta:
-        queryset = Following.objects.all()
-        resource_name = 'following'
-        authorization = Authorization()
         
 class WardResource(ModelResource):    
     class Meta:
@@ -75,4 +69,12 @@ class CommentResource(ModelResource):
     class Meta:
         queryset = Comments.objects.all()
         resource_name = 'comment'
+        authorization = Authorization()
+        
+class FollowingResource(ModelResource):
+    complaint = fields.ForeignKey(ComplaintResource, 'complaint')
+    user = fields.ForeignKey(UserResource, 'user')
+    class Meta:
+        queryset = Following.objects.all()
+        resource_name = 'following'
         authorization = Authorization()

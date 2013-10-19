@@ -58,6 +58,46 @@ def complaints_in_myplate(request):
     return HttpResponse(list_json, content_type='json')
 
 
+def recent_complaints(request):
+    complaint = ComplaintResource()
+    usr = request.user
+    dpt = get_object_or_404(Department,user=usr)
+    #categories = get_list_or_404(Category,department=dpt)
+    categories = Department.objects.all().filter(pk = dpt.id)
+    complaints = []    
+    for cat in categories:
+        comps =get_list_or_404(Complaint,category=cat)
+        for comp in comps:
+            complaints.append(comp)
+    complaints.sort(key=Complaint.date_entered, reverse=True)[:5]       
+    bundles = []
+    for obj in complaints:
+        bundle = complaint.build_bundle(obj=obj, request=request)
+        bundles.append(complaint.full_dehydrate(bundle, for_list=True))
+
+    list_json = complaint.serialize(None, bundles, "application/json")
+    return HttpResponse(list_json, content_type='json')
+
+def top_complaints(request):
+    complaint = ComplaintResource()
+    usr = request.user
+    dpt = get_object_or_404(Department,user=usr)
+    #categories = get_list_or_404(Category,department=dpt)
+    categories = Department.objects.all().filter(pk = dpt.id)
+    complaints = []    
+    for cat in categories:
+        comps =get_list_or_404(Complaint,category=cat)
+        for comp in comps:
+            complaints.append(comp)
+    complaints.sort(key=Complaint.upvotes, reverse=True)       
+    bundles = []
+    for obj in complaints:
+        bundle = complaint.build_bundle(obj=obj, request=request)
+        bundles.append(complaint.full_dehydrate(bundle, for_list=True))
+
+    list_json = complaint.serialize(None, bundles, "application/json")
+    return HttpResponse(list_json, content_type='json')
+
 def complaints_in_mylocality(request):
     complaint = ComplaintResource()
     usr = request.user
