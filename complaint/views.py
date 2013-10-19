@@ -43,14 +43,12 @@ def complaints_in_myplate(request):
     complaint = ComplaintResource()
     usr = request.user
     dpt = get_object_or_404(Department,user=usr)
-    #categories = get_list_or_404(Category,department=dpt)
     categories = dpt.categories.all()
     complaints = []    
     for cat in categories:
         comps =get_list_or_404(Complaint,category=cat)
         for comp in comps:
             complaints.append(comp)
-    #complaints.sort('date_entered')[:5]       
     bundles = []
     for obj in complaints:
         bundle = complaint.build_bundle(obj=obj, request=request)
@@ -64,7 +62,6 @@ def recent_complaints(request):
     complaint = ComplaintResource()
     usr = request.user
     dpt = get_object_or_404(Department,user=usr)
-    #categories = get_list_or_404(Category,department=dpt)
     categories = dpt.categories.all()
     complaints = []    
     for cat in categories:
@@ -72,7 +69,6 @@ def recent_complaints(request):
         for comp in comps:
             complaints.append(comp)
     complaints.sort(key=lambda x:x.date_entered,reverse=True)
-    #ut.sort(key=lambda x: x.count, reverse=True)       
     bundles = []
     for obj in complaints:
         bundle = complaint.build_bundle(obj=obj, request=request)
@@ -85,14 +81,13 @@ def top_complaints(request):
     complaint = ComplaintResource()
     usr = request.user
     dpt = get_object_or_404(Department,user=usr)
-    #categories = get_list_or_404(Category,department=dpt)
     categories = dpt.categories.all()
     complaints = []    
     for cat in categories:
         comps =get_list_or_404(Complaint,category=cat)
         for comp in comps:
             complaints.append(comp)
-    #complaints.sort('date_entered')[:5]       
+    complaints.sort(key=lambda x:x.upvotes,reverse=True)
     bundles = []
     for obj in complaints:
         bundle = complaint.build_bundle(obj=obj, request=request)
