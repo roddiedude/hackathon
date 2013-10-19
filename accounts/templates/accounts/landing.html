@@ -52,14 +52,6 @@ a.icon {
 				<div class="span4 offset2" style="margin-top: 15px;">
 					<a href="/accounts/logout" class="btn btn-link pull-right">Sign Out</a>
 					<a href="/accounts/#/edit" class="btn btn-link pull-right">My Account</a>
-					<label class="label">Select City</label> <select class="span6"
-						name="locality">
-						<option></option>
-						<option value="13">Adayar</option>
-						<option value="14">Guindy</option>
-						<option value="15">Besant Nagar</option>
-						<option value="16">Anna Nagar</option>
-					</select>
 				</div>
 			</div>
 		</div>
@@ -97,10 +89,11 @@ a.icon {
 			<div class="span10 offset1">
 				<div class="" id="loginModal">
 					<div class="modal-header">
-						<button class="btn pull-right btn-danger" type="button"
+						<button class="btn pull-right btn-success" type="button"
 							ng-click="postComplaint()">Post a Complaint</button>
-						<h3>Complaints</h3>
+						<div class="clearfix"></div>
 					</div>
+					
 					<div ng-controller="MyComplaintsController" ng-init="complaints = []; localityComplaints = []">
 						<div class="well">
 							<ul class="nav nav-tabs">
