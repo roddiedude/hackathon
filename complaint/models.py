@@ -19,6 +19,13 @@ class Complaint(models.Model):
     photo = models.ImageField(upload_to="complaints", null=True)
     email = models.CharField(max_length=200)
     phone = models.CharField(max_length=200)
+    status_choices = (
+        ('C', 'Created'),
+        ('A', 'Acknowledged'),
+        ('R', 'Resolved'),
+        
+    )
+    status = models.CharField(max_length=1,choices=status_choices,default='C')
     #follower = models.ManyToManyField(User)
     
     def __unicode__(self):  # Python 3: def __str__(self):

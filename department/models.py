@@ -4,7 +4,7 @@ from category.models import Category
 
 
 class Department(models.Model):
-    user = models.ForeignKey(User)
+    user = models.OneToOneField(User)
     department_name = models.CharField(max_length=200)
     website = models.URLField(max_length=200)
     person_in_charge = models.CharField(max_length=200)
