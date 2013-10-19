@@ -46,7 +46,7 @@ def complaints_in_myplate(request):
     categories = dpt.categories.all()
     complaints = []    
     for cat in categories:
-        comps =get_list_or_404(Complaint,category=cat)
+        comps = Complaint.objects.filter(category=cat)
         for comp in comps:
             complaints.append(comp)
     bundles = []
